@@ -1,0 +1,103 @@
+﻿@model localXchange.Models.newUserViewModel
+@{
+    ViewBag.Title = "Register To The LocalXchange";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.newProfile.ID)
+    <div class="form-group">
+        @Html.LabelFor(m => m.newUser.Email, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.newUser.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.newUser.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.newUser.Password, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.newUser.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.newUser.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.newUser.ConfirmPassword, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.newUser.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.newUser.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.newProfile.fName, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.newProfile.fName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.newProfile.fName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.newProfile.MInitial, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.newProfile.MInitial, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.newProfile.lName, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.newProfile.lName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.newProfile.lName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.newProfile.state, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.newProfile.state, new SelectList(new List<Object>
+                    {
+                    new { value = "Alaska" , text = "Alaska" },
+                    new { value = "Alabama" , text = "Alabama"  },
+                    new { value = "Washington" , text = "Washington"  },
+                    new { value = "Wisconsin" , text = "Wisconsin"  }
+                    }, "value", "text", 2), "State: ", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.newProfile.state, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.newProfile.city, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.newProfile.city, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.newProfile.city, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.newProfile.zipcode, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.newProfile.zipcode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.newProfile.zipcode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.newProfile.address, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.newProfile.address, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" /><span id="required"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <span id="required">* Field Required</span>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
