@@ -77,7 +77,7 @@ namespace localXchange.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.username, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -153,7 +153,7 @@ namespace localXchange.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.newUser.Email, Email = model.newUser.Email };
+                var user = new ApplicationUser { UserName = model.newUser.Email.Split('@').First(), Email = model.newUser.Email };
                 var result = await UserManager.CreateAsync(user, model.newUser.Password);
                 if (result.Succeeded)
                 {
