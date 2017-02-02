@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Globalization;
+using System.Web;
 using System.Linq;
+using System.Web.Mvc;
+using System.Data.Entity;
+using localXchange.Models;
+using System.Globalization;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using localXchange.Models;
 
 namespace localXchange.Controllers
 {
@@ -424,6 +425,29 @@ namespace localXchange.Controllers
             }
 
             base.Dispose(disposing);
+        }
+        public ActionResult manageProfile()
+        {
+            var userId = User.Identity.GetUserId();
+            userProfileModel model = new userProfileModel();
+            model = db.userprofilemodel.Find(userId);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult manageProfile(userProfileModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(model).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(model);
+            }
         }
 
         #region Helpers
