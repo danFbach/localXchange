@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using localXchange.Models;
+using System.Data.Entity;
 
 namespace localXchange.Controllers
 {
@@ -15,7 +16,9 @@ namespace localXchange.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        public ApplicationDbContext db = new ApplicationDbContext();
 
+        #region constuctors
         public ManageController()
         {
         }
@@ -32,9 +35,9 @@ namespace localXchange.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -49,11 +52,24 @@ namespace localXchange.Controllers
                 _userManager = value;
             }
         }
+        #endregion constuctors
+
+        [HttpGet]
+        [ChildActionOnly]
+        public ActionResult _PartialLogInForm()
+        {
+            LoginViewModel model = new Models.LoginViewModel();
+            return PartialView("_LoginPartialDrop", model);
+        }
 
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+            if(TempData["UnErrorMessage"] != null)
+            {
+                ViewBag.UnErrorMessage = TempData["UnErrorMessage"];
+            }
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
@@ -62,7 +78,10 @@ namespace localXchange.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
-
+            if (TempData["StatusMessage"] != null)
+            {
+                ViewBag.StatusMessage = TempData["StatusMessage"];
+            }
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
@@ -333,7 +352,143 @@ namespace localXchange.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        public ActionResult _changeUnPartial()
+        {
+            changeUnViewModel model = new Models.changeUnViewModel();
+            model.CurUsername = User.Identity.GetUserName();
+            return PartialView("_changeUnPartial", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> _changeUnPartial(changeUnViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.NewUsername == model.NewUsernameConfirm)
+                {
+                    ApplicationUser thisUser = UserManager.FindByName(model.CurUsername);
+                    if (checkUsername(model))
+                    {
+                        TempData["UnErrorMessage"] = "Username already Exists, please try another name.";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        thisUser.UserName = model.NewUsername;
+                        var result = await UserManager.UpdateAsync(thisUser);
+                        if (result.Succeeded)
+                        {
+                            bool _result = await signInOut(model.password, thisUser);
+                            if (_result)
+                            {
+                                TempData["StatusMessage"] = "Username updated to " + model.NewUsername + ".";
+                                return RedirectToAction("Index");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index");
+                            }
+                        }
+                        else
+                        {
+                            TempData["UnErrorMessage"] = "Unknown error occurred.";
+                            return RedirectToAction("Index");
+                        }
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        public ActionResult _changePwPartial()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> _changePwPartial(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+            }
+            TempData["UnErrorMessage"] = "Error changing password. " + result;
+            return RedirectToAction("Index");
+        }
+        public ActionResult _setPwPartial()
+        {
+            return PartialView();
+        }
+
+        //
+        // POST: /Manage/SetPassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> _setPwPartial(SetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                if (result.Succeeded)
+                {
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
+        }
+
+        #region Helpers
+
+        public async Task<bool> signInOut(string pw, ApplicationUser user)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            SignInStatus _result = await SignInManager.PasswordSignInAsync(user.UserName, pw, false, shouldLockout: false);
+            switch (_result)
+            {
+                case SignInStatus.Success:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        public bool checkUsername(changeUnViewModel model)
+        {
+            ApplicationUser findUser = UserManager.FindByName(model.NewUsername);
+            if (findUser != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +539,6 @@ namespace localXchange.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

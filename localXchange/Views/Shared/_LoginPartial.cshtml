@@ -1,22 +1,29 @@
 ﻿@using Microsoft.AspNet.Identity
+@{
+    Layout = null;
+}
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "ManageProfile", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#" id="accountOption">Hello @User.Identity.GetUserName()!</a>
+                @Html.Partial("_LoggedInPartial")
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+            </li>
+        </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li id="loginListItem">
+            <a href="#" id="openLoginForm" title="Login / Register">Login / Register</a>
+            @{ Html.RenderAction("partialLogInForm", "Home"); }
+        </li>
     </ul>
 }

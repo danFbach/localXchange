@@ -1,0 +1,11 @@
+﻿@model IEnumerable< localXchange.Models.productCatViewModel>
+
+<ul class="categoryList">
+    @foreach (var item in Model)
+    {
+        string catName = item.productCat.categoryName;
+            <li class="categoryItem">
+                                @Html.ActionLink(catName + " (" + item.productCount + ")", "publicListing", "Product", new { catid = item.productCat.ID }, new { htmlAttributes = new { @class = "" } })
+            </li>
+    }
+</ul>

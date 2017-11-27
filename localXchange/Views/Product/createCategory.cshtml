@@ -1,0 +1,34 @@
+﻿@model localXchange.Models.productCategory
+
+@{
+    ViewBag.Title = "createCategory";
+}
+
+<h2>createCategory</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>productCategory</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="formGroup">
+            <div class="formItem">
+                @Html.EditorFor(model => model.categoryName, new { htmlAttributes = new { @class = "form-control", @placeholder = "New Category For Products" } })
+                @Html.ValidationMessageFor(model => model.categoryName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="formGroup">
+            <div class="formItem">
+                <input type="submit" value="Create" class="btn btn-default btn-submit" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

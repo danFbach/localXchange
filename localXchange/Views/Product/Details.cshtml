@@ -1,114 +1,112 @@
-﻿@model localXchange.Models.ProductModel
+﻿@model localXchange.Models.productDetailsViewModel
+@using Microsoft.AspNet.Identity
 
 @{
+    string comma = ", ";
+    string address = Model.productModel.address;
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
 <div>
-    <h4>ProductModel</h4>
+    <h2>@Html.DisplayFor(model => model.productModel.productName)</h2>
+    <h5 class="text-success">@TempData["StatusMessage"]</h5>
     <hr />
     <dl class="dl-horizontal">
+        @if (Model.productImageCollectionModel.Count() > 0)
+        {
+            <dt id="displayImageContainer" title="Click to View Full-Size.">
+                <span>Click Anywhere to Close</span>
+                <img id="displayImage" src="@Model.productImageCollectionModel[0].relativePath" alt="@Model.productImageCollectionModel[0].fileName" width="auto" height="250"/>
+            </dt>
+            <dd id="imageThumbList">
+                <ul id="imageList">
+                    @foreach (var image in Model.productImageCollectionModel)
+                    {
+                        if (image == Model.productImageCollectionModel.First())
+                        {
+                            <li>
+                                <img class="imageThumbs currentImg" src="@image.relativePath" alt="@image.fileName" width="auto" height="40" />
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <img class="imageThumbs" src="@image.relativePath" alt="@image.fileName" width="auto" height="40" />
+                            </li>
+                        }
+                    }
+                    @if(User.Identity.GetUserId() == Model.productModel.sellerID)
+                    {
+                        <li>
+                            <a href="/Product/addPictures?productID=@Model.productModel.ID" title="Add another photo to @Model.productModel.productName">
+                                <img id="addPhotoIcon" class="imageThumbs" src="~/ProductPhotos/addPhoto.png" width="auto" height="40" alt="add photo" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </dd>
+        }
+        else
+        {
+            <dt>
+                <img id="displayImage" src="~/ProductPhotos/noImg.jpg" alt="No Product Images." width="auto" height="250" />  
+            </dt>
+            <dd>
+
+            </dd>
+        }
         <dt>
-            @Html.DisplayNameFor(model => model.sellerID)
+            Seller: 
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.sellerID)
+            @using (Html.BeginForm("addAddressToBook", "messaging", new { ReturnUrl = Request.Url.AbsolutePath, userAddressUsername = Model.productModel.sellerModel.UserName }, FormMethod.Post, new { @class = "form-horizontall" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.DisplayFor(model => model.productModel.sellerModel.UserName) if (@User.Identity.IsAuthenticated){
+                     <input type="submit" value="Add to Address Book" class="btn btn-default btn-submit" />
+                }
+            }
+            @using (Html.BeginForm("sendNewMessagePost", "messaging", new { recipID = Model.productModel.sellerModel.Id }, FormMethod.Post, new { @class = "form-horizontall" }))
+            {
+                @Html.AntiForgeryToken()
+                if (@User.Identity.IsAuthenticated)
+                {
+                     <input type="submit" value="Send Message" class="btn btn-default btn-submit" /> 
+                }
+            }
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.productName)
+            @Html.DisplayNameFor(model => model.productModel.qtyAvail): 
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.productName)
+            @Html.DisplayFor(model => model.productModel.qtyAvail)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.qtyAvail)
+            @Html.DisplayNameFor(model => model.productModel.qtyRemain): 
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.qtyAvail)
+            @Html.DisplayFor(model => model.productModel.qtyRemain)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.qtyRemain)
+            Location:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.qtyRemain)
+            @Html.DisplayFor(model => model.productModel.state), @Html.DisplayFor(model => model.productModel.city) @Html.DisplayFor(model => model.productModel.zipcode)@if (address != null) {@comma@address; }
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.country)
+            Price:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.country)
+            $@Html.DisplayFor(model => model.productModel.price) per @Html.DisplayFor(model => model.productModel.unitQTY) @Html.DisplayFor(model => model.productModel.unitModel.unitName)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.state)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.state)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.city)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.city)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.zipcode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.zipcode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.unitSoldBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.unitSoldBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.qtySoldBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.qtySoldBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.price)
-        </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<button class="btn btn-default btn-submit" onclick="window.history.back()">Go Back</button>

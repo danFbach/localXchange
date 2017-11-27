@@ -1,0 +1,28 @@
+﻿@model localXchange.Models.ChangePasswordViewModel
+
+
+@using (Html.BeginForm("ChangePassword", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control", @placeholder = "Current Password * Required" })
+        </div>
+    </div>
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control", @placeholder = "New Password * Required" })
+        </div>
+    </div>
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm New Password * Required" })
+        </div>
+    </div>
+    <div class="formGroup">
+        <div class="col-md-offset-2 formItem">
+            <input type="submit" value="Change password" class="btn btn-default" />
+        </div>
+    </div>
+}

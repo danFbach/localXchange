@@ -10,20 +10,22 @@ using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.EnterpriseServices;
 
 namespace localXchange.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public AccountController()
-        {
-        }
+        public AccountController() { }
 
+
+        #region System Utils
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
@@ -53,31 +55,25 @@ namespace localXchange.Controllers
                 _userManager = value;
             }
         }
+        #endregion System Utils
 
-        //
-        // GET: /Account/Login
-        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(homepageViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.username, model.Password, model.RememberMe, shouldLockout: false);
+            string _username = getLoginUserName(model.loginViewModel);
+            var result = await SignInManager.PasswordSignInAsync(_username, model.loginViewModel.Password, model.loginViewModel.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -85,15 +81,15 @@ namespace localXchange.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.loginViewModel.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    ViewBag.ErrorMessage = "Invalid login attempt.";
+                    TempData["ErrorMessage"] = "Invalid login attempt.";
+                    return RedirectToAction("Index", "Home", model);
             }
         }
 
-        //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
@@ -151,27 +147,30 @@ namespace localXchange.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(newUserViewModel model)
         {
+            string username = "";
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.newUser.Email.Split('@').First(), Email = model.newUser.Email };
+                if(model.newProfile.user.UserName != null)
+                {
+                    string checkedUsername = createUserName(model.newProfile.user.UserName);
+                    if(checkedUsername == model.newProfile.user.UserName) { username = model.newProfile.user.UserName; }                    
+                    else { ViewBag.ErrorMessage = "Username is already in use, try something else or leave line blank to use your email address."; return View(model); }
+                }
+                else { username = createUserName(createUsernamePrefix(model.newProfile)); }
+                ApplicationUser user = new ApplicationUser { UserName = username, Email = model.newUser.Email };
                 var result = await UserManager.CreateAsync(user, model.newUser.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    var profile = new userProfileModel { fName=model.newProfile.fName, MInitial= model.newProfile.MInitial,lName= model.newProfile.lName,state= model.newProfile.state, city= model.newProfile.city, zipcode= model.newProfile.zipcode,address= model.newProfile.address, ID = user.Id, UserID = user.Id };
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    UserManager.AddToRole(user.Id, "StdUser");
+                    var profile = new userProfileModel { fName = model.newProfile.fName, MInitial = model.newProfile.MInitial, lName = model.newProfile.lName, state = model.newProfile.state, city = model.newProfile.city, zipcode = model.newProfile.zipcode, address = model.newProfile.address, contactEmail = model.newUser.Email, ID = user.Id, UserID = user.Id };
                     db.userprofilemodel.Add(profile);
                     db.SaveChanges();
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    await signInOut(model.newUser.Password, user);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -206,7 +205,7 @@ namespace localXchange.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByNameAsync(model.username);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -450,6 +449,29 @@ namespace localXchange.Controllers
             }
         }
 
+        #region scriptPartialPostHelper
+        
+        //public ActionResult UN_Available()
+        //{
+        //    return View();
+        //}
+        
+        //[HttpPost]
+        //public ActionResult UN_Available(ajaxUNcheckModel ajaxuncheckmodel)
+        //{
+        //    ApplicationUser _user = UserManager.FindByName(ajaxuncheckmodel.username);
+        //    if(_user != null)
+        //    {
+        //        return View("Available");
+        //    }
+        //    else
+        //    {
+        //        return View("UnAvailable");
+        //    }
+        //}
+
+        #endregion scriptPartialPostHelper
+
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -508,5 +530,66 @@ namespace localXchange.Controllers
             }
         }
         #endregion
+
+        #region utils
+
+        public string getLoginUserName(LoginViewModel user)
+        {
+            user.username = UserManager.FindByName(user.username).UserName;
+            if (user.username == null)
+            {
+                user.username = UserManager.FindByEmail(user.username).UserName;
+                return user.username;
+            }
+            else
+            {
+                return user.username;
+            }
+            
+
+        }
+        public async Task<ActionResult> signInOut(string pw, ApplicationUser user)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            SignInStatus _result = await SignInManager.PasswordSignInAsync(user.UserName, pw, false, shouldLockout: false);
+            switch (_result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal("Index");
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = "Index", RememberMe = false });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return RedirectToAction("Index");
+            }
+        }
+        public string createUserName(string usernamePrefix)
+        {
+            ApplicationUser userExists = UserManager.FindByName(usernamePrefix);
+            if (userExists == null) { return usernamePrefix; }
+            else
+            {
+                Random newRan = new Random();
+                usernamePrefix = usernamePrefix + newRan.Next(0, 9).ToString();
+                return createUserName(usernamePrefix);
+            }
+        }
+        
+        public ActionResult UN_Available(string Un)
+        {
+            ApplicationUser thisUser = UserManager.FindByName(Un);
+            if(thisUser != null) { return PartialView("_UnAvailable"); }
+            else { return PartialView("_Available"); }
+        }
+        public string createUsernamePrefix(userProfileModel model)
+        {
+            char fNameInitial = model.fName.ElementAt(0);
+            string newUN = model.lName + "." + fNameInitial;
+            return newUN;
+        }
+        #endregion utils
     }
 }

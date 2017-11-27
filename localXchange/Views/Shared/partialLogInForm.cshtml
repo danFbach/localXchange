@@ -1,0 +1,79 @@
+﻿@model localXchange.Models.homepageViewModel
+@{
+    Layout = null;
+}
+@if (ViewBag.ErrorMessage != null)
+{
+    <div id="loginPartialDrop" class="preload active error">
+        <span class="errorMessage">@ViewBag.ErrorMessage</span>
+        <div id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="logPartialGroup">
+                    <div class="logPartialForm">
+                        @Html.TextBoxFor(m => m.loginViewModel.username, new { @class = "logPartialBox", @placeholder = "Username or Email" })
+                        @Html.ValidationMessageFor(m => m.loginViewModel.username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="logPartialGroup">
+                    <div class="logPartialForm">
+                        @Html.PasswordFor(m => m.loginViewModel.Password, new { @class = "logPartialBox", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.loginViewModel.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="logPartialGroup rem">
+                    <div class="logPartialForm">
+                        @Html.CheckBoxFor(m => m.loginViewModel.RememberMe)
+                        @Html.LabelFor(m => m.loginViewModel.RememberMe, new { @class = "remLabel" })
+                    </div>
+                </div>
+                <div class="logPartialGroup loginBtn">
+                    <div class="logPartialForm">
+                        <input type="submit" value="Submit" class="logPartialBtn" />
+                    </div>
+                </div>
+                <div id="registerLink">
+                    @Html.ActionLink("Create an Account", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div id="loginPartialDrop" class="preload">
+        <div id="loginForm">
+            @using (Html.BeginForm("partialLoginForm", "Home", new { ReturnUrl = Request.Url.AbsoluteUri }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                @Html.AntiForgeryToken()
+                <div class="logPartialGroup">
+                    <div class="logPartialForm">
+                        @Html.TextBoxFor(m => m.loginViewModel.username, new { @class = "logPartialBox", @placeholder = "Username or Email" })
+                        @Html.ValidationMessageFor(m => m.loginViewModel.username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                    <div class="logPartialGroup">
+                        <div class="logPartialForm">
+                            @Html.PasswordFor(m => m.loginViewModel.Password, new { @class = "logPartialBox", @placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.loginViewModel.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="logPartialGroup rem">
+                        <div class="logPartialForm">
+                            @Html.CheckBoxFor(m => m.loginViewModel.RememberMe)
+                            @Html.LabelFor(m => m.loginViewModel.RememberMe, new { @class = "remLabel" })
+                        </div>
+                    </div>
+                    <div class="logPartialGroup loginBtn">
+                        <div class="logPartialForm">
+                            <input type="submit" value="Submit" class="logPartialBtn" />
+                        </div>
+                    </div>
+                    <div id="registerLink">
+                        @Html.ActionLink("Create an Account", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                    </div>
+            }
+        </div>
+    </div>
+}

@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FoolproofValidation, Version=0.9.5851.39121, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FoolproofValidation.0.9.4518\lib\net45\FoolproofValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -171,64 +175,78 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\messagingController.cs" />
+    <Compile Include="Controllers\productCategoriesController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702010931453_initial.cs" />
-    <Compile Include="Migrations\201702010931453_initial.Designer.cs">
-      <DependentUpon>201702010931453_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201703231534420_0_initial.cs" />
+    <Compile Include="Migrations\201703231534420_0_initial.Designer.cs">
+      <DependentUpon>201703231534420_0_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703231603587_1_initial.cs" />
+    <Compile Include="Migrations\201703231603587_1_initial.Designer.cs">
+      <DependentUpon>201703231603587_1_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\addressBookModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\locationModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\messagingModel.cs" />
     <Compile Include="Models\newUserViewModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
-    <Compile Include="Models\productViewModels.cs" />
     <Compile Include="Models\ratingModel.cs" />
     <Compile Include="Models\userProfileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
+    <Content Include="Client Scripts\mvcfoolproof.unobtrusive.min.js" />
+    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.js" />
+    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.min.js" />
+    <Content Include="Client Scripts\MvcFoolproofValidation.js" />
+    <Content Include="Client Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Compile Include="Models\ajaxUNcheckModel.cs" />
+    <Content Include="ProductPhotos\addPhoto.png" />
+    <Content Include="ProductPhotos\Cow Milk\tumblr_static_aesthetic_dream_space_hd_desktop_wallpaper_06_1680x1050.jpg" />
+    <Content Include="ProductPhotos\Filet Mignon\Blue-Space.jpg" />
+    <Content Include="ProductPhotos\Filet Mignon\space_atlantis_nebula_star_103363_1920x1080.jpg" />
+    <Content Include="ProductPhotos\Filet Mignon\tumblr_static_aesthetic_dream_space_hd_desktop_wallpaper_06_1680x1050.jpg" />
+    <Content Include="ProductPhotos\Ground Chuck 85\15\another_nebula.jpg.jpg" />
+    <Content Include="ProductPhotos\Ground Chuck 85\15\Blue-Space.jpg" />
+    <Content Include="ProductPhotos\Ground Chuck 85\15\tumblr_static_aesthetic_dream_space_hd_desktop_wallpaper_06_1680x1050.jpg" />
+    <Content Include="ProductPhotos\mllk\Universe-planet-purple-storm_1920x1080.jpg" />
+    <Content Include="ProductPhotos\noImg.jpg" />
+    <Content Include="ProductPhotos\Salami\galaxy-wallpaper-36.jpg" />
+    <Content Include="ProductPhotos\Sundried Tomatoes\another_nebula.jpg.jpg" />
+    <Content Include="ProductPhotos\Sundried Tomatoes\Blue-Space.jpg" />
+    <Content Include="ProductPhotos\Sundried Tomatoes\tumblr_static_aesthetic_dream_space_hd_desktop_wallpaper_06_1680x1050.jpg" />
+    <Content Include="ProductPhotos\Tomatoes\another_nebula.jpg.jpg" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\defaultScript.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Scripts\geolocator.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -240,7 +258,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutGuest.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -272,17 +290,51 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\PagedProducts\multiProductPage.cshtml" />
     <Content Include="Views\PagedProducts\miniProduct.cshtml" />
+    <Content Include="Views\Shared\_LayoutStdUser.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\partialLogInForm.cshtml" />
+    <Content Include="Views\Shared\_LoggedInPartial.cshtml" />
+    <Content Include="Views\Shared\_PartialProductDrop.cshtml" />
+    <Content Include="Views\Manage\_changeUnPartial.cshtml" />
+    <Content Include="Views\Manage\_changePwPartial.cshtml" />
+    <Content Include="Views\Manage\_setPwPartial.cshtml" />
+    <Content Include="Views\Shared\_loginFormPartial.cshtml" />
+    <Content Include="Views\productCategories\Create.cshtml" />
+    <Content Include="Views\productCategories\Delete.cshtml" />
+    <Content Include="Views\productCategories\Details.cshtml" />
+    <Content Include="Views\productCategories\Edit.cshtml" />
+    <Content Include="Views\productCategories\Index.cshtml" />
+    <Content Include="Views\Shared\_PartialCategoryDrop.cshtml" />
+    <Content Include="Views\Product\createProductStepOne.cshtml" />
+    <Content Include="Views\Product\createCategory.cshtml" />
+    <Content Include="Views\Product\addPictures.cshtml" />
+    <Content Include="Views\messaging\Index.cshtml" />
+    <Content Include="Views\Shared\_PartialMessageDrop.cshtml" />
+    <Content Include="Views\Product\publicListing.cshtml" />
+    <Content Include="Views\messaging\sendNewMessage.cshtml" />
+    <Content Include="Views\messaging\viewMessage.cshtml" />
+    <Content Include="Views\Shared\_LayoutRegister.cshtml" />
+    <Content Include="Views\Account\_UnAvailable.cshtml" />
+    <Content Include="Views\Account\_Available.cshtml" />
+    <Content Include="Views\Product\_partialProductList.cshtml" />
+    <Content Include="Views\Product\_partialCategoryList.cshtml" />
+    <Content Include="Views\Product\_partialCategorySelect.cshtml" />
+    <Content Include="Views\Shared\messageCount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ProductPhotos\Mint\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201702010931453_initial.resx">
-      <DependentUpon>201702010931453_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703231534420_0_initial.resx">
+      <DependentUpon>201703231534420_0_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703231603587_1_initial.resx">
+      <DependentUpon>201703231603587_1_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

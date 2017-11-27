@@ -1,0 +1,38 @@
+﻿@model localXchange.Models.partialLoginViewModel
+
+@{ 
+    Layout = null;
+}
+
+<div id="loginPartialDrop" class="preload">
+    <div id="loginForm">
+        @using (Html.BeginForm("_loginFormPartial", "Manage", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="logPartialGroup">
+                <div class="logPartialForm">
+                    @Html.TextBoxFor(m => m.username, new { @class = "logPartialBox", @placeholder = "Username" })
+                    @Html.ValidationMessageFor(m => m.username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="logPartialGroup">
+                <div class="logPartialForm">
+                    @Html.PasswordFor(m => m.Password, new { @class = "logPartialBox", @placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="logPartialGroup rem">
+                <div class="logPartialForm">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe)
+                </div>
+            </div>
+            <div class="logPartialGroup loginBtn">
+                <div class="logPartialForm">
+                    <input type="submit" value="Submit" class="logPartialBtn" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,19 +1,20 @@
-﻿@model IEnumerable<localXchange.Models.ProductModel>
+﻿@model IEnumerable<localXchange.Models.productModel>
+@using Microsoft.AspNet.Identity
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Your Product List";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("New Product", "createProductStepOne")
+</p>
+<p>
+    <span class="text-danger">@ViewBag.StatusMessage</span>
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.sellerID)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.productName)
         </th>
@@ -24,25 +25,7 @@
             @Html.DisplayNameFor(model => model.qtyRemain)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.country)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.state)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.city)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.zipcode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.unitSoldBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.qtySoldBy)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.price)
@@ -53,10 +36,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.sellerID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.productName)
+            @Html.ActionLink(item.productName, "Details", new { id = item.ID })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.qtyAvail)
@@ -65,32 +45,15 @@
             @Html.DisplayFor(modelItem => item.qtyRemain)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.country)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.state)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.city)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.zipcode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.unitSoldBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.qtySoldBy)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.price)
         </td>
         <td>
+            @Html.ActionLink("Add Pictures", "addPictures", new { productID = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) | 
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>

@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Foolproof;
 
 namespace localXchange.Models
 {
@@ -82,5 +83,54 @@ namespace localXchange.Models
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+    }
+
+    public class changeUnViewModel
+    {
+        [Display(Name = "Current Username")]
+        public string CurUsername { get; set; }
+
+        [Required]
+        [Display(Name = "New Username")]
+        [StringLength(25, ErrorMessage = "New Username must be between {2} and {0} characters long.", MinimumLength = 4)]
+        //[Compare("CurUsername", ErrorMessage = "The New Username and Current Username must be different.")]
+        [NotEqualTo("CurUsername", ErrorMessage = "The New Username and Current Username must be different.")]
+        public string NewUsername { get; set; }
+
+        [Required]
+        [Display(Name = "Confirm New Username")]
+        [Compare("NewUsername", ErrorMessage = "The new Username and confirmation Username do not match.")]
+        public string NewUsernameConfirm { get; set; }
+
+        [Required]
+        [Display(Name ="Password")]
+        [DataType(DataType.Password)]
+        public string password { get; set; }
+    }
+
+    public class partialLoginViewModel
+    {
+        [Required]
+        [Display(Name = "User Name")]
+        public string username { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+
+    public class homepageViewModel
+    {
+        public homepageProductListPack products { get; set; }
+        public LoginViewModel loginViewModel { get; set; }
+    }
+    public class homepageProductListPack
+    {
+        public List<productDetailsViewModel> products { get; set; }
+        public userProfileModel currentUserModel { get; set; }
     }
 }

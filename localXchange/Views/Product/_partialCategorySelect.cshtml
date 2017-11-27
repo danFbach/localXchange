@@ -1,0 +1,6 @@
+﻿@model localXchange.Models.productCatSelectList
+
+@using (Html.BeginForm("publicListing", "product", FormMethod.Post))
+{ 
+    @Html.DropDownListFor(m => m.catID, Model.cats, "All Categories", new { @class = "form-control", @onchange = "this.form.submit()" })
+}

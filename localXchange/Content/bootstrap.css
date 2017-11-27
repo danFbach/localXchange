@@ -2518,8 +2518,7 @@ input[type="search"] {
 }
 input[type="radio"],
 input[type="checkbox"] {
-  margin: 4px 0 0;
-  margin-top: 1px \9;
+  margin: 0;
   line-height: normal;
 }
 input[type="file"] {
@@ -2565,10 +2564,10 @@ output {
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control:focus {
-  border-color: #66afe9;
+  border-color: rgba(77, 255, 77, 0.6);
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(77, 255, 77, 0.6);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(77, 255, 77, 0.6);
 }
 .form-control::-moz-placeholder {
   color: #999;
@@ -2628,7 +2627,7 @@ input[type="search"] {
     line-height: 46px;
   }
 }
-.form-group {
+.formGroup {
   margin-bottom: 15px;
 }
 .radio,
@@ -2719,22 +2718,22 @@ textarea.input-sm,
 select[multiple].input-sm {
   height: auto;
 }
-.form-group-sm .form-control {
+.formGroup-sm .form-control {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
 }
-.form-group-sm select.form-control {
+.formGroup-sm select.form-control {
   height: 30px;
   line-height: 30px;
 }
-.form-group-sm textarea.form-control,
-.form-group-sm select[multiple].form-control {
+.formGroup-sm textarea.form-control,
+.formGroup-sm select[multiple].form-control {
   height: auto;
 }
-.form-group-sm .form-control-static {
+.formGroup-sm .form-control-static {
   height: 30px;
   min-height: 32px;
   padding: 6px 10px;
@@ -2756,22 +2755,22 @@ textarea.input-lg,
 select[multiple].input-lg {
   height: auto;
 }
-.form-group-lg .form-control {
+.formGroup-lg .form-control {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333;
   border-radius: 6px;
 }
-.form-group-lg select.form-control {
+.formGroup-lg select.form-control {
   height: 46px;
   line-height: 46px;
 }
-.form-group-lg textarea.form-control,
-.form-group-lg select[multiple].form-control {
+.formGroup-lg textarea.form-control,
+.formGroup-lg select[multiple].form-control {
   height: auto;
 }
-.form-group-lg .form-control-static {
+.formGroup-lg .form-control-static {
   height: 46px;
   min-height: 38px;
   padding: 11px 16px;
@@ -2798,14 +2797,14 @@ select[multiple].input-lg {
 }
 .input-lg + .form-control-feedback,
 .input-group-lg + .form-control-feedback,
-.form-group-lg .form-control + .form-control-feedback {
+.formGroup-lg .form-control + .form-control-feedback {
   width: 46px;
   height: 46px;
   line-height: 46px;
 }
 .input-sm + .form-control-feedback,
 .input-group-sm + .form-control-feedback,
-.form-group-sm .form-control + .form-control-feedback {
+.formGroup-sm .form-control + .form-control-feedback {
   width: 30px;
   height: 30px;
   line-height: 30px;
@@ -2913,7 +2912,7 @@ select[multiple].input-lg {
   color: #737373;
 }
 @media (min-width: 768px) {
-  .form-inline .form-group {
+  .form-inline .formGroup {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -2974,9 +2973,9 @@ select[multiple].input-lg {
 .form-horizontal .checkbox {
   min-height: 27px;
 }
-.form-horizontal .form-group {
-  margin-right: -15px;
-  margin-left: -15px;
+.form-horizontal .formGroup {
+  margin-right: auto;
+  margin-left: auto;
 }
 @media (min-width: 768px) {
   .form-horizontal .control-label {
@@ -2989,13 +2988,13 @@ select[multiple].input-lg {
   right: 15px;
 }
 @media (min-width: 768px) {
-  .form-horizontal .form-group-lg .control-label {
+  .form-horizontal .formGroup-lg .control-label {
     padding-top: 11px;
     font-size: 18px;
   }
 }
 @media (min-width: 768px) {
-  .form-horizontal .form-group-sm .control-label {
+  .form-horizontal .formGroup-sm .control-label {
     padding-top: 6px;
     font-size: 12px;
   }
@@ -4199,7 +4198,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
             box-shadow: none;
   }
   .navbar-collapse.collapse {
-    display: block !important;
+    display: inline-block !important;
     height: auto !important;
     padding-bottom: 0;
     overflow: visible !important;
@@ -4254,7 +4253,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 1030;
+  z-index: 1;
 }
 @media (min-width: 768px) {
   .navbar-fixed-top,
@@ -4376,7 +4375,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1);
 }
 @media (min-width: 768px) {
-  .navbar-form .form-group {
+  .navbar-form .formGroup {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -4426,10 +4425,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 @media (max-width: 767px) {
-  .navbar-form .form-group {
+  .navbar-form .formGroup {
     margin-bottom: 5px;
   }
-  .navbar-form .form-group:last-child {
+  .navbar-form .formGroup:last-child {
     margin-bottom: 0;
   }
 }
@@ -4486,7 +4485,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-right {
     float: right !important;
-    margin-right: -15px;
+    margin-right: 0;
   }
   .navbar-right ~ .navbar-right {
     margin-right: 0;
@@ -4604,6 +4603,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #9d9d9d;
 }
 .navbar-inverse .navbar-nav > li > a {
+  transition: color 0.3s;
   color: #9d9d9d;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -6468,8 +6468,8 @@ button.close {
 .container-fluid:after,
 .row:before,
 .row:after,
-.form-horizontal .form-group:before,
-.form-horizontal .form-group:after,
+.form-horizontal .formGroup:before,
+.form-horizontal .formGroup:after,
 .btn-toolbar:before,
 .btn-toolbar:after,
 .btn-group-vertical > .btn-group:before,
@@ -6498,7 +6498,7 @@ button.close {
 .container:after,
 .container-fluid:after,
 .row:after,
-.form-horizontal .form-group:after,
+.form-horizontal .formGroup:after,
 .btn-toolbar:after,
 .btn-group-vertical > .btn-group:after,
 .nav:after,

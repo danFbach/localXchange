@@ -29,9 +29,13 @@ namespace localXchange.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<unitsModel> unitsModel { get; set; }
         public DbSet<userProfileModel> userprofilemodel { get; set; }
-        public DbSet<ProductModel> productmodel { get; set; }
+        public DbSet<productModel> productmodel { get; set; }
+        public DbSet<productCategory> productCategory { get; set; }
         public DbSet<ratingModel> ratingmodel { get; set; }
-
+        public DbSet<productImage> productImage { get; set; }
+        public DbSet<messagingModel> messagingModel { get; set; }
+        public DbSet<addressBookModel> addressBookModel { get; set; }
     }
 }

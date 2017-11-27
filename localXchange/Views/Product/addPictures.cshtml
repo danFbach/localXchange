@@ -1,0 +1,35 @@
+﻿@model int?
+@{ 
+    ViewBag.Title = "addPictures";
+    int productID = Model.Value;
+}
+
+<h2>Add Pictures to Product</h2>
+
+@using (Html.BeginForm("addPictures", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => productID)
+
+    <div class="form-horizontal">
+        <h6 class="text-danger">@ViewBag.ErrorMessage</h6>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="formGroup photoGroup" id="0">
+            @Html.Label("New Photo")
+            <div class="formItem">
+                <input class="form-control" type="file" name="files[0]" id="files_0" accept=".bmp, .dib, .jpg, .jpeg, .jpe, .jfif, .gif, .tif, .tiff, .png" />
+             </div>
+        </div>
+        <div class="formGroup">
+            <div class="formItem">
+                <input type="button" value="Additional Photo" class="btn btn-default addPhotoButton" />
+            </div>
+        </div>
+        <div class="formGroup">
+            <div class="formItem">
+                <input type="submit" value="Upload" style="" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

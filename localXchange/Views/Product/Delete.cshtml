@@ -1,4 +1,4 @@
-﻿@model localXchange.Models.ProductModel
+﻿@model localXchange.Models.aProductModel
 
 @{
     ViewBag.Title = "Delete";
@@ -44,14 +44,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.country)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.country)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.state)
         </dt>
 
@@ -84,19 +76,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.unitSoldBy)
+            @Html.DisplayNameFor(model => model.unitID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.unitSoldBy)
+            @Html.DisplayFor(model => model.unit.unitName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.qtySoldBy)
+            @Html.DisplayNameFor(model => model.unitQTY)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.qtySoldBy)
+            @Html.DisplayFor(model => model.unitQTY)
         </dd>
 
         <dt>

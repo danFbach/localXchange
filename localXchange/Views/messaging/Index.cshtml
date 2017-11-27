@@ -1,0 +1,121 @@
+﻿@model localXchange.Models.InOutBox
+@{  
+    int unreadCount = Model.messagesIN.Where(x => x.readUnread == false).Count();
+    string genTitle = "Messages";
+    if (unreadCount > 0) { genTitle = "(" + unreadCount.ToString() + ") Messages"; }
+    ViewBag.Title = genTitle;
+    string headerTitle = "You have " + unreadCount.ToString() + " unread Message";
+    string plural = "s.";
+    string singular = ".";
+}
+
+<table class="tableTitle">
+    <tr>
+        <th style="border: none;">
+            <h2 class="messagingTitle"> @headerTitle@if (unreadCount > 1) {@plural; } else {@singular; }</h2>
+            <h4 class="text-danger">@ViewBag.StatusMessage</h4>
+        </th>
+        <th style="border: none;">
+            @if (Model.addresses != null && Model.addresses.Count() > 0)
+            {
+                <div class="addressBookForm">
+                    <h6 class="addrStatusMsssage text-success">@ViewBag.addrBookMessage</h6>
+                    @Html.Label("Create A New Message: ", new { @class = "messageHomeLabel" })
+                    @using (Html.BeginForm("createNewMessage", "messaging", FormMethod.Post, htmlAttributes: new { @style = "float:right;" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.DropDownListFor(m => m.addressBookEntryUsername, Model.addresses, "Users In Addresss Book:", new { @class = "form-control", @onchange = "this.form.submit()" })
+                    }
+                </div>
+            }
+        </th>
+    </tr>
+</table>
+
+<table class="table messageList inbox">
+    <tr>
+        <td style="border:none;">   
+            <h2 class="messagingTitle">Inbox</h2>
+        </td>
+        <td style="border: none;"></td>
+    </tr>
+    <tr>
+        <th class="sendRecip">
+            Sender
+        </th>
+        <th class="messSubject">
+            Subject
+        </th>
+        <th class="messDate">
+            Date-Time Recieved
+        </th>
+        <th class="messRead">
+            Read
+        </th>
+        <th class="readMessage"></th>
+    </tr>
+    @foreach (var thisMessage in Model.messagesIN)
+    {
+        <tr>
+            <td class="sendRecip">
+                @Html.ActionLink(thisMessage.sender.UserName, "sendNewMessage", new { recipientID = thisMessage.receiverID }, htmlAttributes: new { @class = "", title = "Send a new message to " + thisMessage.receiver.UserName })
+            </td>
+            <td class="messSubject">
+                @Html.ActionLink(thisMessage.subject, "viewMessage", "messaging", new { messageID = thisMessage.messageID }, htmlAttributes: new { @class = "messageLink" })
+            </td>
+            <td class="messDate">
+                @Html.DisplayFor(m => thisMessage.datetimeSent, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+            <td class="messRead">
+                @Html.DisplayFor(m => thisMessage.readUnread, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+            <td class="readMessage">
+                @Html.ActionLink("Read Message", "viewMessage", new { messageID = thisMessage.messageID }, htmlAttributes: new { @class = "messageLink" })
+            </td>
+        </tr>
+    }
+</table>
+
+<table class="table messageList outbox">
+    <tr>
+        <td style="border:none;">
+            <h2 class="messagingTitle">Sent</h2>
+        </td>
+        <td style="border: none;"></td>
+    </tr>
+    <tr>
+        <th class="sendRecip">
+            Recipient
+        </th>
+        <th class="messSubject">
+            Subject
+        </th>
+        <th class="messDate">
+            Date-Time Sent
+        </th>
+        <th class="messRead">
+            Read
+        </th>
+        <th class="readMessage"></th>
+    </tr>
+    @foreach (var inMessage in Model.messagesOUT)
+    {
+        <tr>
+            <td class="sendRecip">
+                @Html.ActionLink(inMessage.receiver.UserName, "sendNewMessage", new { recipientID = inMessage.receiverID }, htmlAttributes: new { title = "Send a new message to " + inMessage.receiver.UserName })
+            </td>
+            <td class="messSubject">
+                @Html.ActionLink(inMessage.subject, "viewMessage", "messaging", new { messageID = inMessage.messageID }, htmlAttributes: new { @class = "messageLink" } )
+            </td>
+            <td class="messDate">
+                @Html.DisplayFor(m => inMessage.datetimeSent)
+            </td>
+            <td class="messRead">
+                @Html.DisplayFor(m => inMessage.readUnread)
+            </td>
+            <td class="readMessage">
+                @Html.ActionLink("Read Message", "viewMessage", new { messageID = inMessage.messageID }, htmlAttributes: new { @class = "messageLink" } )
+            </td>
+        </tr>
+    }
+</table>

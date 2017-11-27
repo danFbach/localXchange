@@ -8,12 +8,18 @@ namespace localXchange.Models
 {
     public class ratingModel
     {
-        [Required]
+        [Key]
         public int ID { get; set; }
 
         [Required]
         [Display(Name ="User")]
         public string userID { get; set; }
+        public ApplicationUser user { get; set; }
+
+        [Required]
+        [Display(Name ="Product")]
+        public string productID { get; set; }
+        public productModel product { get; set; }
 
         [Required]
         [Display(Name ="Rating")]

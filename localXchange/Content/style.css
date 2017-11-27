@@ -1,0 +1,1127 @@
+﻿/*UNIVERSAL STYLING START*/
+    body{
+        background: #F5F5F5;
+    }
+    .body-content{
+        display: block;
+        position: relative;
+        height: auto;
+    }
+    .container .jumbotron{
+        padding: 1px;
+        background: transparent;
+    }
+    h2#homeHeader{
+        text-align: center;
+        font-size: 30px;
+        margin: 10px 0;
+    }
+    .table > tbody > tr > th.rowTitle{
+        border: none;
+    }
+    footer{
+        clear: both;
+        width: 100%;
+        text-align: center;
+    }
+    .container{
+        height: 45px;
+    }
+    .body-content{
+        margin-top: 10px;
+    }
+    .navbar{
+        border: 1px solid #222;
+        background: #001726;
+        border-bottom: 1px solid #e27900;
+        box-shadow: 0px 5px 10px #222;  
+        position: fixed;
+        min-height: 50px;
+        max-height: 50px;
+        margin-bottom: 20px;
+    }
+    select,
+    .btn-submit{
+        background: transparent;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);        
+        -webkit-transition: all ease-in-out .3s;
+             -o-transition: all ease-in-out .3s;
+                transition: all ease-in-out .3s;
+    }
+    select:hover,
+    select:focus,
+    .btn-submit:hover,    
+    .btn-submit:focus,
+    .btn-submit:active,
+    .btn-submit:active:focus{
+        background: #FFF;
+        border-color: #e27900;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #e27900;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #e27900;        
+    }
+    @keyframes locLoading {
+        0%      { width: 0; }
+        100%    { width: 100%; }
+    }
+    .btn-submit.inactive::before{
+        content: ' ';
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background: #a3ffa3;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        border-radius: 5px;
+        animation: locLoading 6s ease-in-out;
+        transition: all 0.3s;
+    }
+    .btn-submit.inactive, .btn-submit.inactive:hover,.btn-submit.inactive:focus{
+        cursor: not-allowed;
+        color: #AAA;
+        border-color: #ccc;
+        box-shadow: none;
+        background: transparent;
+        transition: all 0.3s;
+    }
+    .curLocBtn{
+        background-color: #FFF;
+        color: #666;
+        border: 2px solid #9cfc88;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #9cfc88;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #9cfc88;
+        transition: all 0.3s;    
+    }
+    .curLocBtn.err,.curLocBtn.err:hover,.curLocBtn.err:focus{
+        color: #CC0000;
+        border: 2px solid #CC0000;
+    }
+
+    .form-control {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 0px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);        
+        -webkit-transition: all ease-in-out .3s;
+             -o-transition: all ease-in-out .3s;
+                transition: all ease-in-out .3s;
+    }
+    .form-control:hover,
+    .form-control:focus {
+        border-color: #e27900;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #e27900;
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #e27900;
+    }
+    .form-control::-moz-placeholder {
+        color: #999;
+        opacity: 1;
+    }
+    .form-control:-ms-input-placeholder {
+        color: #999;
+    }
+    .form-control::-webkit-input-placeholder {
+        color: #999;
+    }
+    .form-control::-ms-expand {
+        background-color: transparent;
+        border: 0;
+    }
+    .form-control[disabled],
+    .form-control[readonly],
+    fieldset[disabled] .form-control {
+        background-color: #eee;
+        opacity: 1;
+    }
+    .form-control[disabled],
+    fieldset[disabled] .form-control {
+        cursor: not-allowed;
+    }
+    .formLabel.unitQty,
+    .form-control.unitQty{
+        width: 205px;
+        float: left;
+        text-align: left;
+    }
+    .formLabel.unitDrop,
+    .form-control.unitDrop{
+        width: 75px;
+        float: left;
+        text-align: left;
+        padding: 0px;
+        text-transform: capitalize;
+    }
+    .formLabel.unitDrop{
+        padding-top: 7px;
+        text-indent: 5px;
+    }
+    .formGroup.adrGroup{
+        width: 580px;
+        height: auto;
+        vertical-align: unset;
+        display: block;
+        margin: 0px;
+        overflow: hidden;
+    }
+    .formItem.adrItem{
+        width: 280px;
+        float: left;
+        margin-right: 10px;
+    }
+    .radioButton{
+        float: left;
+    }
+    ul.categoryList{
+        display: inline-block;
+        list-style: none;
+        padding: 0;
+        float: left;
+    }
+    li.categoryItem{
+        margin: 5px 0;
+        font-size: 16px;
+    }
+    li.categoryItem a:link,
+    li.categoryItem a{
+        text-decoration: none;
+        color: #001726;
+        transition: color 0.3s ease-in-out;
+    }
+    li.categoryItem a:hover,
+    li.categoryItem a:focus{
+        color: #e27900;
+    }
+    .jumbotron{
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+    ul.prodListSidebar{
+        list-style: none;
+        display: inline-flex;
+        flex-wrap: wrap;
+        float: right;
+        clear: none;
+        width: 900px;
+        padding: 10px 0;
+        justify-content: space-evenly;
+        position: relative;
+    }
+    ul.prodListSidebar li.prodListItem{
+        border: 1px solid #666;
+        padding: 10px;
+        margin: 10px;
+        width: 200px;
+        box-shadow: 0 0 10px #666;
+        display: inline-block;
+    }
+    h2#partialProductListTitle{
+        width: 900px;
+        display: block;
+        float: right;
+        text-align: center;
+        margin: 0px;
+        position: relative;
+        font-size: 24px;
+    }
+    ul#messageMenu,
+    ul#categoryMenu,
+    ul#productPartialMenu,
+    ul#accountMenu{
+        padding: 0;
+        margin: 0;
+    }
+    #loginListItem{
+        width: 140px;
+    }
+    #loginListItem span.errorMessage{
+        color: #e27900;
+        position: absolute;
+        z-index: 11;
+        top: 15px;
+        width: 175px;
+        right: 150px;
+    }
+    .navbar-inverse .navbar-brand,
+    .navbar-inverse .navbar-nav > li > a{
+        color: #DDD;
+    }
+    .navbar-inverse .navbar-nav > li > span#openLoginForm{
+        width: 140px;
+        right: 75px;
+    }
+    #messageDropMenu li a:hover,
+    #messageMenu li:hover,
+    #categoryMenu li:hover,
+    #productPartialDrop li a:hover,
+    #loggedInPartialDrop li a:hover,
+    .navbar-inverse .navbar-nav > li > span:hover,
+    .navbar-inverse .navbar-brand:hover,
+    .navbar-inverse .navbar-brand:focus,
+    .navbar-inverse .navbar-nav > li > a:hover,
+    .navbar-inverse .navbar-nav > li > a:focus{
+        cursor: pointer;
+        color: #e27900;
+    }
+    .navbar-inverse .navbar-nav > li > span:hover,
+    .navbar-inverse .navbar-brand:hover,
+    .navbar-inverse .navbar-brand:focus,
+    .navbar-inverse .navbar-nav > li > a:hover,
+    .navbar-inverse .navbar-nav > li > a:focus{
+        text-decoration: none;
+    }
+    #messageMenu li:focus,
+    #categoryMenu li:focus,
+    #loggedInPartialDrop li a:focus,
+    #productPartialDrop li a:focus,
+    .navbar-inverse .navbar-nav > li > span:focus{
+        cursor: pointer;
+        color: #FFFFFF;
+    }
+    #messageMenu li,
+    #categoryMenu li,
+    #productPartialDrop li,
+    #loggedInPartialDrop li{
+        list-style: none;
+    }
+
+    #messageMenu li a,
+    #categoryMenu li a,
+    #productPartialDrop li a,
+    #loggedInPartialDrop li a,
+    .navbar-inverse .navbar-nav > li > span{
+        animation-name: showAccountItems;
+        animation-duration: .1s;
+        color: #ddd;
+        display: none;
+        line-height: 25px;
+        opacity: 0;
+        padding:0 15px;
+        position: relative;
+        right: auto;
+        text-align: center;
+        transition: color 0.3s;
+    }
+    .navbar-inverse .navbar-nav > li > span{
+        animation: none;
+        opacity: 1;
+        line-height: 20px;
+        padding: 15px;
+        display: block;
+    }
+    #messageDropMenu.active li a,
+    #categoryDropMenu.active li a,
+    #productPartialDrop.active li a,
+    #loggedInPartialDrop.active li a{
+        animation-name: hideAccountItems;        
+        display: block;
+        animation-duration: 0.6s;
+        opacity: 1;
+    }
+    #usernameForm{
+        display: none;
+        clear: both;
+        float: left;
+    }
+    .accountMngmnt .username{
+        display: inline;
+    }
+    #changePwForm{
+        display: none;
+        clear: both;
+        float: left;
+    }
+    .formGroup{
+        width: auto;
+        display: block;
+        clear: both;
+        margin: 10px 0;
+        vertical-align: middle;
+    }
+    .formItem{
+        position: relative;
+        min-height: 1px;
+        padding:0;
+        width: auto;
+    }
+    .dl-horizontal{
+        overflow: hidden;
+    }
+    .dl-horizontal dt{
+        margin-right: 7px;
+        width: auto;
+        text-transform: capitalize;
+    }
+    .dl-horizontal dd{
+        float: left;
+        margin: auto auto;
+    }
+    .dl-horizontal dd#imageThumbList{
+        float: left;
+        clear: both;
+    }
+    .slideToggle,
+    .slideToggle:visited,
+    .x,
+    .x:visited{
+        color: #7aec66;
+        transition: color 0.3s;
+    }
+    .slideToggle:hover,
+    .slideToggle:focus,
+    .x:hover,
+    .x:focus{
+        cursor: pointer;
+        color: #9cf18e;
+    }
+/*UNIVERSAL STYLING END*/
+
+/*CREATE NEW MESSAGE START*/
+    .messagingTitle{
+        float: left;
+        padding: 0 10px;
+    }
+    .newMessage .formGroup,
+    .newMessage .formItem{
+        width: auto;
+        max-width: unset;
+    }
+    .newMessage input#subject,
+    .newMessage input#message{
+        width: 500px;
+        max-width: unset;
+    }
+    .newMessage input#message{
+        height: 100px;
+    }
+    table.tableTitle,
+    table.tableTitle tbody,
+    table.tableTitle tbody tr{
+        display: block;
+    }
+    table.tableTitle th:first-of-type{
+        border: none;
+        float: left;
+    }
+    table.tableTitle th:last-of-type{
+        border: none;
+        float: right;
+        padding-top: 10px;
+    }
+    .addressBookForm {
+        display: inline-block;
+        width: 450px;
+        float: right;
+        overflow: hidden;
+        padding: 10px 10px 20px;
+    }
+    .messageHomeLabel{
+        float: left;
+        padding: 0;
+        width: 170px;
+        margin-top: 5px;
+    }
+    .messageBox{
+        width: 175px;
+        height: auto;
+        overflow: hidden;
+        float: right;
+    }
+    .messageList{
+        display: block;
+        overflow-y: scroll;
+        max-height: 275px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0px 0px 7px #222;
+    }
+    .messageList h2{
+        margin: 0;
+    }
+    .addressDropList{
+        position: absolute;
+        height: 25px;
+        width: 175px;
+        overflow: hidden;
+        list-style: none;
+        text-indent: 5px;
+        float: left;
+        padding: 0;
+        background: #F5F5F5;
+        box-shadow: 0px 0px 5px #666;
+        border-radius: 5px;
+        transition: height 0.3s ease-in-out;
+    }
+    .addressDropList .option{
+        display: block;
+    }
+    .addressDropList #selectUser{
+        padding-bottom: 2px;
+        color: #333;
+        transition: color 0.2s;
+    }
+    .addressDropList #selectUser:hover{
+        color: #e27900;
+    }
+    .addressDropList .userOption a{
+        color: #333;
+        border-top: 1px solid #CCC;
+        margin: 2.5px 0;
+        transition: color 0.25s;
+    }
+    .addressDropList .userOption a:hover{
+        cursor: pointer;
+        color: #e27900;
+    }
+    .newMessageLink{
+        width: 155px;
+        display: block;
+        float: left;
+    }
+    .removeUserLink{
+        width: 20px;
+        float: left;
+    }
+    .addrStatusMsssage{
+        display: block;
+        position: absolute;
+        top: 50px;
+    }
+    #selectText{
+        position: relative;
+        top: 4px;
+    }
+    #downArrow{
+        position: relative;
+        float: right;
+        top: 1px;
+        right: 4px;
+        transform: rotate(90deg);
+    }
+/*CREATE NEW MESSAGE END*/
+
+/*Product Detail Page Start*/
+    #imageList{
+        
+    }
+    #imageList li{
+        margin: 10px;
+        float: left;
+        list-style: none;
+        position: relative;
+        left: -40px;
+    }
+    #imageList li:hover{
+        cursor: pointer;
+    }
+    #imageList li img{
+        opacity: 0.7;
+        transition: opacity 0.3s;
+    }
+    #imageList li:hover img{
+        opacity: 1;
+    }
+    #imageList .imageThumbs.currentImg{
+        opacity: 1;
+        cursor: default;
+    }
+    img#displayImage{
+        display: block;
+        -webkit-transform:scale3d(1,1,1);
+                transform:scale3d(1,1,1);        
+    }
+    img#displayImage:hover{
+        -webkit-animation-name:pulse;
+        -webkit-animation-duration:1s;
+        -webkit-animation-fill-mode:both;
+                animation-name:pulse;
+                animation-duration:1s;
+                animation-fill-mode:both;
+    }
+    dt#displayImageContainer:hover{
+        cursor: pointer;
+    }
+    dt#displayImageContainer.fullScreen img#displayImage:hover{
+        animation-name: none;
+        -webkit-animation-name:none;        
+    }
+    dt#displayImageContainer.fullScreen img#displayImage{
+        position: absolute;
+        top: 40px;
+        left: auto;
+        height: auto;
+        width: auto;
+        max-height: 90vh;
+        max-width: 70vw;
+        z-index: 10;
+        box-shadow: 15px 15px 15px #000;
+    }
+    dt#displayImageContainer.fullScreen{
+        position: fixed;
+        top: 0; 
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: 9;
+        background: rgba(25, 25, 25, 0.9);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+    }
+    dt#displayImageContainer span{
+        display: none;
+    }
+    dt#displayImageContainer.fullScreen span{
+        display: block;
+        color: #FFF;
+        text-align: center;
+        font-size: 26px;
+        z-index: 11;
+        position: absolute;
+        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        font-weight: 100;
+        letter-spacing: 7.5px;
+        width:100vw;
+    }
+/*Product Detail Page End*/
+
+/*LOGIN BOX KEYFRAMES START*/
+    @keyframes loginBoxDown {
+        0%      {   height:0px;     width:0px;      color: transparent; z-index: -1; opacity: 0; right: -125px;   }
+        1%      {   opacity: 1; }
+        10%     {   height:160px;   width:0px;      color: transparent; z-index: -1; opacity: 1; right: -125px;   }
+        100%    {   height:160px;   width:250px;    color: #FFF;        z-index: 10; opacity: 1; right: 100px;   }
+    }
+    @keyframes loginBoxUp {
+        0%      {   height:160px;   width:250px;    color: #FFF;        z-index: 10; opacity: 1; right: 100px;   }
+        90%     {   height:160px;   width:0px;      color: transparent; z-index: -1; opacity: 1; right: -125px;   }
+        99%     {   opacity: 1; }
+        100%    {   height:0px;     width:0px;      color: transparent; z-index: -1; opacity: 0; right: -125px;   }
+    }   
+    @keyframes hideBox {
+        0%      {   opacity: 0; }
+        50%     {   opacity: 0; }
+        100%    {   opacity: 1; }
+    }
+    @keyframes showBox {
+        0%      {   opacity: 1; }
+        50%     {   opacity: 0; }
+        100%    {   opacity: 0; }
+    }
+/*LOGIN BOX KEYFRAMES END*/
+
+/*LOGIN BOX STYLE START*/
+    #loginPartialDrop{
+        height:0;
+        width:0;
+        display:block;
+        overflow: hidden;
+        color: #222;
+        position: relative;
+        z-index:-1;
+        top: -2px;
+        left: auto;
+        right: -125px;
+        opacity: 0;
+        border: 1px solid #e27900;
+        border-top: none;
+        border-radius: 5px;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        background:#001726;
+        padding: 0;
+        animation-name: loginBoxUp;
+        animation-duration: 1s;
+    }
+    #loginPartialDrop.active{
+        opacity: 1;
+        height: 160px;
+        width: 250px;
+        right: 100px;
+        color: #FFF;
+        z-index: 10;
+        padding: 0 15px;
+        box-shadow:0px 2px 10px #222;
+        animation-name: loginBoxDown;
+        animation-duration: 1s;
+    }
+    #loginPartialDrop.active.error{
+        height: 175px;
+    }
+    #loginListItem span.errorMessage{
+        right: auto;
+        top: auto;
+    }
+    #loginPartialDrop.error #loginForm{
+        position: relative;
+        top: 15px;
+    }
+    #loginPartialDrop .form-horizontal .formGroup{
+        margin:0;
+    }
+    #loginPartialDrop #registerLink{
+        position: relative;
+        bottom: -4px;
+    }
+    #loginPartialDrop #registerLink a:link,
+    #loginPartialDrop #registerLink a:visited{
+        color: #FFF;
+        position: relative;
+        transition: color ease-in-out 0.25s, letter-spacing ease-in-out 0.3s;
+    }
+    #loginPartialDrop #registerLink a:hover,
+    #loginPartialDrop #registerLink a:focus{
+        color: #e27900;
+        text-decoration: none;
+    }
+    .form-horizontal .logPartialLabel{
+        width:100%;
+        text-align:center;
+    }
+    .logPartialForm{
+        width:100%;
+    }
+
+    label.logPartialLabel{
+        margin: 5px 0 2px 0;
+    }
+
+    .logPartialBtn{
+        font-weight: 900;
+        line-height: 1.6;
+        color: #555;
+        background: #FFF;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 2px 10px;
+        font-size: 12px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s, color ease-in-out 0.15s;
+             -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, color ease-in-out 0.15s;
+                transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, color ease-in-out 0.15s;
+    }
+    .logPartialBtn:focus,
+    .logPartialBtn:hover{
+        color: #e27900;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #e27900;
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #e27900;
+    }
+    .logPartialGroup{
+        margin: 10px 0 0;
+    }
+    .logPartialGroup.rem,
+    .logPartialGroup.loginBtn{
+        margin-top: 5px;
+    }
+    .rem label,
+    .rem input{
+        margin: 0;
+    }
+    .rem input#RememberMe:hover{
+        outline:1px solid #e27900;
+    }
+    .rem input#RememberMe ~ label{
+        color: #FFF;
+        transition: color ease-in-out 0.25s;
+    }
+    .rem input#RememberMe:checked ~ label,
+    .rem input#RememberMe:hover ~ label{
+        color: #e27900;
+    }
+    #loginPartialDrop .logPartialLabel,
+    #loginPartialDrop .logPartialGroup,
+    #loginPartialDrop .logPartialBox{
+        opacity: 0;
+        animation-name: showBox;
+        animation-duration: 0.8s;
+    }
+    #loginPartialDrop.active .logPartialLabel,
+    #loginPartialDrop.active .logPartialGroup,
+    #loginPartialDrop.active .logPartialBox{
+        opacity: 1;
+        animation-name: hideBox;
+        animation-duration: 0.8s;
+    }
+    #loginPartialDrop .logPartialBox{
+        display: block;
+        width: 100%;
+        height: 25px;
+        padding: 0px 5px;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #8888ff;
+        background: #666;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s, color ease-in-out 0.15s;
+             -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, color ease-in-out 0.15s;
+                transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, color ease-in-out 0.15s;
+    }
+    #loginPartialDrop .logPartialBox:focus{
+        color: #e27900;        
+    }
+    #loginPartialDrop .logPartialBox:hover,
+    #loginPartialDrop .logPartialBox:focus {
+        border-color: #ccc;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #e27900;
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #e27900;
+    }
+    .logPartialBox::-moz-placeholder {
+        color: #999;
+        opacity: 1;
+    }
+    .logPartialBox:-ms-input-placeholder {
+        color: #999;
+    }
+    .logPartialBox::-webkit-input-placeholder {
+        color: #999;
+    }
+    .logPartialBox::-ms-expand {
+        background-color: transparent;
+        border: 0;
+    }
+    .logPartialBox[disabled],
+    .logPartialBox[readonly],
+    fieldset[disabled] .logPartialBox {
+        background-color: #eee;
+        opacity: 1;
+    }
+    .logPartialBox[disabled],
+    fieldset[disabled] .logPartialBox {
+        cursor: not-allowed;
+    }
+    textarea.logPartialBox {
+        height: auto;
+    }
+/*LOGIN BOX STYLE END*/
+
+/*LOGGED IN KEYFRAMES START*/
+    @keyframes accountMenuDown {
+        0%      { height:0;     width:0;        z-index:-1; opacity: 0; }
+        1%      { opacity: 1; }
+        50%     { height:60px;  width:0;        z-index: 1; opacity: 1; }
+        100%    { height:60px;  width: 175px;   z-index: 1; opacity: 1; }
+    }
+    @keyframes accountMenuUp {
+        0%      { height:60px;  width: 175px;   z-index: 1; opacity: 1; }
+        50%     { height:60px;  width:0;        z-index: 1; opacity: 1; }
+        99%     { opacity: 1; }
+        100%    { height:0;     width:0;        z-index:-1; opacity: 0; }
+    }
+    @keyframes hideAccountItems {
+        0%      { opacity: 0; }
+        60%     { opacity: 0; }
+        100%    { opacity: 1; }
+    }
+    @keyframes showAccountItems {
+        0%      { opacity: 1; }
+        100%    { opacity: 0; }
+    }
+/*LOGGED IN KEYFRAMES END*/
+
+/*LOGGED IN STYLE START*/
+    #loggedInPartialDrop{
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        top: 48px;
+        left: -15px;
+        background: #001726;
+        height: 0;
+        width: 0;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        padding: 0px;
+        animation-name: accountMenuUp;
+        animation-duration: 0.5s;
+    }
+    #loggedInPartialDrop.active{
+        opacity: 1;
+        z-index: 1;
+        height: 60px;
+        width: 175px;
+        border: 1px solid #e27900;
+        border-top: none;
+        box-shadow: 0px 5px 10px #222;
+        animation-name: accountMenuDown;
+        animation-duration: 0.5s;
+    }
+/*LOGGED IN STYLE END*/
+
+/*PRODUCT DROP KEYFRAME START*/
+    @keyframes productMenuDown {
+        0%      { height:0;     width:0;        z-index:-1; opacity: 0; }
+        1%      { opacity: 1; }
+        50%     { height:80px;  width:0;        z-index: 1; opacity: 1; }
+        100%    { height:80px;  width: 160px;   z-index: 1; opacity: 1; }
+    }
+    @keyframes productMenuUp {
+        0%      { height:80px;  width: 160px;   z-index: 1; opacity: 1; }
+        50%     { height:80px;  width:0;        z-index: 1; opacity: 1; }
+        99%     { opacity: 1; }
+        100%    { height:0;     width:0;        z-index:-1; opacity: 0; }
+    }
+/*PRODUCT DROP KEYFRAME END*/
+
+/*PRODUCT STYLE START*/    
+    #productPartialDrop{
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        top: 48px;
+        background:#001726;
+        height: 0;
+        width: 0;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        padding: 0px;
+        left: auto;
+        animation-name: productMenuUp;
+        animation-duration: 0.3s;
+    }
+    #productPartialDrop.active{
+        opacity: 1;
+        z-index: 1;
+        height: 80px;
+        width: 160px;
+        border: 1px solid #e27900;
+        border-top: none;
+        box-shadow: 0px 5px 10px #222;
+        animation-name: productMenuDown;
+        animation-duration: 0.3s;
+    }
+/*PRODUCT STYLE END*/
+
+/*CATEGORY DROP KEYFRAMES START*/    
+    @keyframes categoryMenuDown {
+        0%      { height:0;     width:0;        z-index:-1; opacity: 0; }
+        1%      { opacity: 1; }
+        50%     { height:60px;  width:0;        z-index: 1; opacity: 1; }
+        100%    { height:60px;  width: 150px;   z-index: 1; opacity: 1; }
+    }
+    @keyframes categoryMenuUp {
+        0%      { height:60px;  width: 150px;   z-index: 1; opacity: 1; }
+        50%     { height:60px;  width:0;        z-index: 1; opacity: 1; }
+        99%     { opacity: 1; }
+        100%    { height:0;     width:0;        z-index:-1; opacity: 0; }
+    }
+/*CATEGORY DROP KEYFRAMES END*/
+
+/*CATEGORY DROP STYLE START*/
+    #categoryDropMenu{
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        top: 48px;
+        background:#001726;
+        height: 0;
+        width: 0;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        padding: 0px;
+        left: auto;
+        animation-name: categoryMenuUp;
+        animation-duration: 0.5s;
+    }
+    #categoryDropMenu.active{
+        opacity: 1;
+        z-index: 1;
+        height: 60px;
+        width: 150px;
+        border: 1px solid #e27900;
+        border-top: none;
+        box-shadow: 0px 5px 10px #222;
+        animation-name: categoryMenuDown;
+        animation-duration: 0.5s;
+    }
+/*CATEGORY DROP STYLE END*/
+
+/*MESSAGING DROP KEYFRAMES START*/    
+    @keyframes messagingMenuDown {
+        0%      { height:0;     width:0;        z-index:-1; opacity: 0; }
+        1%      { opacity: 1; }
+        50%     { height:60px;  width:0;        z-index: 1; opacity: 1; }
+        100%    { height:60px;  width: 160px;   z-index: 1; opacity: 1; }
+    }
+    @keyframes messagingMenuUp {
+        0%      { height:60px;  width: 160px;   z-index: 1; opacity: 1; }
+        50%     { height:60px;  width:0;        z-index: 1; opacity: 1; }
+        99%     { opacity: 1; }
+        100%    { height:0;     width:0;        z-index:-1; opacity: 0; }
+    }
+/*MESSAGING DROP KEYFRAMES END*/
+
+/*MESSAGING DROP STYLE START*/
+    #messageDropMenu{
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+        top: 48px;
+        background:#001726;
+        height: 0;
+        width: 0;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        padding: 0px;
+        left: auto;
+        animation-name: messagingMenuUp;
+        animation-duration: 0.5s;
+    }
+    #messageDropMenu.active{
+        opacity: 1;
+        z-index: 1;
+        height: 60px;
+        width: 160px;
+        border: 1px solid #e27900;
+        border-top: none;
+        box-shadow: 0px 5px 10px #222;
+        animation-name: messagingMenuDown;
+        animation-duration: 0.5s;
+    }
+/*MESSAGING DROP STYLE END*/
+
+/*MESSAGING INDEX START*/
+    table .sendRecip{
+        display: block;
+        float: left;
+        overflow: hidden;
+        word-break: break-all;
+        width: 175px;
+    }
+    table .messSubject {
+        display: block;
+        float: left;
+        overflow: hidden;
+        word-break: break-all;
+        width: 600px;
+    }
+    table .messDate{
+        display: block;
+        float: left;
+        overflow: hidden;
+        word-break: break-all;
+        width: 160px;
+    }
+    table .messRead{
+        display: block;
+        float: left;
+        overflow: hidden;
+        word-break: break-all;
+    }
+    table td .messRead{
+        display: block;
+        position: relative;
+        float: left;
+        left: 10px;
+    }
+    table .readMessage{
+        display: block;
+        float: left;
+        overflow: hidden;
+        word-break: break-all;
+    }
+    table tr .messages{
+
+    }
+/*MESSAGING INDEX END*/
+
+/*HOMEPAGE STYLING START*/
+    .homepageProdImgLink img{
+        opacity: 1;
+        transition: opacity 0.25s ease-in-out;
+    }
+    .homepageProdImgLink img:hover{
+        opacity: 0.85;
+    }
+    .homepageProdNameLink:link,
+    .homepageProdNameLink:visited{
+        color: #e27900;
+        transition: color 0.2s ease-in-out;
+    }
+    .homepageProdNameLink:hover,
+    .homepageProdNameLink:focus{
+        color: #8888ff;
+        text-decoration: none;
+    }
+    .prodImageContainer {
+        display: flex;
+        justify-content: center;
+    }
+    .prodImageContainer a{
+        display: inline-block;
+    }
+    .prodContainer{
+        border: 1px solid #666;
+        padding: 10px;
+        margin: 10px;
+        width: 23%;
+        width: calc(25% - 30px);
+        box-shadow: 0 0 10px #666;
+    }
+    .prodBoxContainer{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+/*HOMEPAGE STYLING END*/
+
+/* ANIMATION PACK START */
+    .animated {
+        -webkit-animation-duration:1s;
+        animation-duration:1s;
+        -webkit-animation-fill-mode:both;
+        animation-fill-mode:both
+    }
+    @-webkit-keyframes pulse {
+        0%  { -webkit-transform:scale3d(1,1,1); transform:scale3d(1,1,1) }
+        50% { -webkit-transform:scale3d(1.05,1.05,1.05); transform:scale3d(1.05,1.05,1.05) }
+        100%{ -webkit-transform:scale3d(1,1,1); transform:scale3d(1,1,1) }
+    }
+    @keyframes pulse {
+        0%  { -webkit-transform:scale3d(1,1,1); transform:scale3d(1,1,1) }
+        50% { -webkit-transform:scale3d(1.05,1.05,1.05); transform:scale3d(1.05,1.05,1.05) }
+        100%{ -webkit-transform:scale3d(1,1,1); transform:scale3d(1,1,1) }
+    }
+    .pulse {
+        -webkit-animation-name:pulse;
+        animation-name:pulse
+    }
+/* ANIMATION PACK END */
+
+/* ANIMATION PRELOAD START*/
+    /* #loggedInPartialDrop.preload, */
+    .preload *,
+    * .preload {
+      -webkit-transition: none !important;
+      -moz-transition: none !important;
+      -ms-transition: none !important;
+      -o-transition: none !important;
+      -webkit-animation: none !important;
+      -moz-animation: none !important;
+      -ms-animation: none !important;
+      -o-animation: none !important;
+    }
+/* ANIMATION PRELOAD END*/

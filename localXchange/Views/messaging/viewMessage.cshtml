@@ -1,0 +1,36 @@
+﻿@model localXchange.Models.messagingModel
+@{
+    ViewBag.Title = "View Message";
+}
+<h2>@ViewBag.Title</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt> @Html.DisplayNameFor(model => model.subject) </dt>                                                                                                                     
+        <dd>
+            @Html.DisplayFor(model => model.subject)
+            @if (Model.important == true)
+            {
+                <span class="text-danger"> - Important</span>
+            }
+            @if (Model.readUnread == true)
+            {
+                <span class="text-success"> - Read</span>
+            }
+            else if (Model.readUnread == false)
+            {
+                <span class="text-warning"> - Unread</span>
+            }
+        </dd>
+        <dt> @Html.DisplayName("Sender") </dt>
+        <dd> @Html.DisplayFor(model => model.sender.UserName) </dd>
+
+        <dt> @Html.DisplayName("Recipient") </dt>
+        <dd> @Html.DisplayFor(model => model.receiver.UserName) </dd>
+
+        <dt> @Html.DisplayNameFor(model => model.message) </dt>
+        <dd> @Html.DisplayFor(model => model.message) </dd>
+
+    </dl>
+    <button class="btn btn-default btn-submit" onclick="location.href='/messaging'">Go Back</button>
+</div>

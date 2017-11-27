@@ -1,124 +1,174 @@
-﻿@model localXchange.Models.ProductModel
-
+﻿@model localXchange.Models.createProductViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create a new Product";
 }
-
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.ID)
+    @Html.HiddenFor(x => x.categoryID)
+    @Html.HiddenFor(x => x.sellerID)
     <div class="form-horizontal">
-        <h4>ProductModel</h4>
+        <h6 class="text-danger">@ViewBag.ErrorMessage</h6>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.sellerID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.sellerID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.sellerID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.productName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.productName, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="formGroup">
+            @Html.LabelFor(model => model.productName, htmlAttributes: new { @class = "control-label formLabel required" })
+            <div class="formItem">
+                @Html.EditorFor(model => model.productName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Happy Apples!" } })
                 @Html.ValidationMessageFor(model => model.productName, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.qtyAvail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.qtyAvail, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="formGroup">
+            <label class="control-label formLabel">Images</label>
+            <div class="formItem">
+                <div class="radioButton">
+                    @Html.Label("True")
+                    @Html.RadioButtonFor(m => m.images, true, new { htmlAttributes = new { @class = "radioBtns" } })
+                </div>
+                <div class="radioButton">
+                    @Html.Label("False")
+                    @Html.RadioButtonFor(m => m.images, false, new { htmlAttributes = new { @class = "radioBtns" } })
+                </div>
+            </div>
+        </div>
+        <div class="formGroup">
+            <label class="control-label formLabel">Category</label>
+            <div class="formItem" style="width: 280px; border: 1px solid #CCC; border-radius: 4px; height: 34px; text-indent: 15px; line-height: 35px; position: relative; top: 5px; color: #999;">
+                @Html.DisplayTextFor(m => m.category.categoryName)
+            </div>
+        </div>
+        <div class="formGroup">
+            @Html.LabelFor(model => model.unitQty, htmlAttributes: new { @class = "control-label formLabel unitQty" })
+            @Html.Label("Unit", htmlAttributes: new { @class = "control-label formLabel unitDrop required"})
+            <div class="formItem" style="clear:left;">
+                @Html.EditorFor(model => model.unitQty, new { htmlAttributes = new { @class = "form-control unitQty", @placeholder = "X.XX" } })
+                @Html.DropDownListFor(m => m.unitID, Model.unitList, "Unit", new { @class = "form-control unitDrop" })
+                @Html.ValidationMessageFor(model => model.unitQty, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.unitID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="formGroup">
+            @Html.LabelFor(model => model.qtyAvail, htmlAttributes: new { @class = "control-label formLabel required" })
+            <div class="formItem">
+                @Html.EditorFor(model => model.qtyAvail, new { htmlAttributes = new { @class = "form-control", @placeholder = "X.XX" } })
                 @Html.ValidationMessageFor(model => model.qtyAvail, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.qtyRemain, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.qtyRemain, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.qtyRemain, "", new { @class = "text-danger" })
+        <div class="formGroup">
+            <div class="formItem">
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.country, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.country, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.state, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.state, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.city, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.zipcode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.zipcode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.zipcode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.unitSoldBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.unitSoldBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.unitSoldBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.qtySoldBy, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.qtySoldBy, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.qtySoldBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="formGroup">
+            @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label formLabel required" })
+            <div class="formItem">
+                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control", @placeholder = "X.XX NOT $X.XX" } })
                 @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+        <div class="formGroup">
+            <div class="formItem" style="display:inline-block;">
+                <button type="button" class="curLocBtn btn btn-default btn-submit inactive" title="Retrieve Location">Location Loading</button>
+            </div>
+        </div>
+
+        <div class="formGroup adrGroup">
+            <div class="formItem adrItem">@Html.LabelFor(model => model.state, htmlAttributes: new { @class = "control-label required" })</div>
+            <div class="formItem adrItem">@Html.LabelFor(model => model.city, htmlAttributes: new { @class = "control-label required" })</div>
+        </div>
+        <div class="formGroup adrGroup">
+            <div class="formItem  adrItem">
+                @Html.DropDownListFor(m => m.state, new SelectList(new List<Object>
+                    {
+                    new { value = "Alabama" ,       text = "AL | Alabama"  },
+                    new { value = "Alaska" ,        text = "AK | Alaska" },
+                    new { value = "Arizona" ,       text = "AZ | Arizona" },
+                    new { value = "Arkansas" ,      text = "AR | Arkansas" },
+                    new { value = "California" ,    text = "CA | California" },
+                    new { value = "Colorado" ,      text = "CO | Colorado" },
+                    new { value = "Connecticut" ,   text = "CT | Connecticut" },
+                    new { value = "Delaware" ,      text = "DE | Delaware" },
+                    new { value = "Florida" ,       text = "FL | Florida" },
+                    new { value = "Georgia" ,       text = "GA | Georgia" },
+                    new { value = "Hawaii" ,        text = "HI | Hawaii" },
+                    new { value = "Idaho" ,         text = "ID | Idaho" },
+                    new { value = "Illinois" ,      text = "IL | Illinois" },
+                    new { value = "Indiana" ,       text = "IN | Indiana" },
+                    new { value = "Iowa" ,          text = "IA | Iowa" },
+                    new { value = "Kansas" ,        text = "KS Kansas" },
+                    new { value = "Kentucky" ,      text = "KY | Kentucky" },
+                    new { value = "Louisiana" ,     text = "LA | Louisiana" },
+                    new { value = "Maine" ,         text = "ME | Maine" },
+                    new { value = "Maryland" ,      text = "MD | Maryland" },
+                    new { value = "Massachusetts" , text = "MA | Massachusetts" },
+                    new { value = "Michigan" ,      text = "MI | Michigan" },
+                    new { value = "Minnesota" ,     text = "MN | Minnesota" },
+                    new { value = "Mississippi" ,   text = "MS | Mississippi" },
+                    new { value = "Missouri" ,      text = "MO | Missouri" },
+                    new { value = "Montana" ,       text = "MT | Montana" },
+                    new { value = "Nebraska" ,      text = "NE | Nebraska" },
+                    new { value = "Nevada" ,        text = "NV | Nevada" },
+                    new { value = "New Hampshire" , text = "NH | New Hampshire" },
+                    new { value = "New Jersey" ,    text = "NJ | New Jersey" },
+                    new { value = "New Mexico" ,    text = "NM | New Mexico" },
+                    new { value = "New York" ,      text = "NY | New York" },
+                    new { value = "North Carolina" ,text = "NC | North Carolina" },
+                    new { value = "North Dakota" ,  text = "ND | North Dakota" },
+                    new { value = "Ohio" ,          text = "OH | Ohio" },
+                    new { value = "Oklahoma" ,      text = "OK | Oklahoma" },
+                    new { value = "Oregon" ,        text = "OR | Oregon" },
+                    new { value = "Pennsylvania" ,  text = "PA | Pennsylvania" },
+                    new { value = "Rhode Island " , text = "RI | Rhode Island " },
+                    new { value = "South Carolina" ,text = "SC | South Carolina" },
+                    new { value = "South Dakota" ,  text = "SD | South Dakota" },
+                    new { value = "Tennessee" ,     text = "TN | Tennessee" },
+                    new { value = "Texas" ,         text = "TX | Texas" },
+                    new { value = "Utah" ,          text = "UT | Utah" },
+                    new { value = "Vermont" ,       text = "VT | Vermont" },
+                    new { value = "Virginia" ,      text = "VA | Virginia" },
+                    new { value = "Washington" ,    text = "WA | Washington"  },
+                    new { value = "West Virginia" , text = "WV | West Virginia" },
+                    new { value = "Wisconsin" ,     text = "WI | Wisconsin"  },
+                    new { value = "Wyoming" ,       text = "WY | Wyoming" }
+                    }, "value", "text", 2), "State: *", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.state, "", new { @class = "text-danger" })
+            </div>
+            @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
+            <div class="formItem adrItem">
+                @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="formGroup adrGroup">
+            <div class="formItem adrItem">@Html.LabelFor(model => model.zipcode, htmlAttributes: new { @class = "control-label required" })</div>
+            <div class="formItem adrItem">@Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label" })</div>
+        </div>
+        <div class="formGroup adrGroup">
+            <div class="formItem adrItem">
+                @Html.EditorFor(model => model.zipcode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
+            </div>
+            <div class="formItem adrItem">
+                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="formGroup">
+            @Html.LabelFor(m => m.tags)
+            <div class="formItem">
+                @Html.EditorFor(m => m.tags, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.tags, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="formGroup">
+            <div class="formItem">
+                <input type="submit" value="Create New Product" class="btn btn-default btn-submit" />
             </div>
         </div>
     </div>
 }
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

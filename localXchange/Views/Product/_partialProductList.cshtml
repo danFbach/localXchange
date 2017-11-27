@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNet.Identity
+@model localXchange.Models.homepageProductListPack
+
+<h2 id="partialProductListTitle">Products Recently Listed Near</h2>
+<ul class="prodListSidebar">
+    @foreach (var product in Model.products)
+    {
+        <li class="prodListItem">
+            <div class="prodImageContainer">
+                @if (product.productImageCollectionModel[0] != null)
+                {
+                    <a href="/Product/Details/@product.productModel.ID" title="@product.productModel.productName" class="homepageProdImgLink">
+                        <img src="@product.productImageCollectionModel[0].relativePath" height="100 " width="auto" alt="image not found" title="@product.productModel.productName" />
+                    </a>
+                }
+                else
+                {
+                    <img src="~/ProductPhotos/noImg.jpg" height="100" width="auto" alt="image not found" title="No Image Supplied For Product" />
+                }
+            </div>
+            <div id="prodDetails">
+                <h4>
+                    @Html.ActionLink(product.productModel.productName, "Details", "Product", new { id = product.productModel.ID }, htmlAttributes: new { @class = "homepageProdNameLink" })
+                </h4>
+                <h5>
+                    $@product.productModel.price per @product.productModel.unitModel.unitName
+                </h5>
+                <h6>
+                    Sold by: @product.productSeller.UserName
+                </h6>
+            </div>
+        </li>
+    }
+</ul>

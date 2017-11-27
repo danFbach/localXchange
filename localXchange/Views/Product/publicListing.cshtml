@@ -1,0 +1,59 @@
+﻿@model IEnumerable<localXchange.Models.publicListingViewModel>
+@{ 
+    string space = " ";
+    ViewBag.Title = "Product Listing";
+}
+<h4 class="text-danger">
+    @ViewBag.StatusMessage
+</h4>
+@{ Html.RenderAction("_partialCategorySelect", "Product"); }
+<table class="table">
+@foreach (var item in Model)
+{
+    <tr>
+        <th class="rowTitle"><h2>@Html.DisplayFor(m => item.productCat.categoryName)</h2></th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayName("Seller")
+        </th>
+        <th>
+            @Html.DisplayName("Product")
+        </th>
+        <th>
+            @Html.DisplayName("Quantity Available")
+        </th>
+        <th>
+            @Html.DisplayName("Price")
+        </th>
+        <th>
+            @Html.DisplayName("City")
+        </th>
+        <th></th>
+    </tr>
+    foreach (var product in item.products)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => product.sellerModel.UserName)
+            </td>
+            <td>
+                @Html.ActionLink(product.productName, "Details", new { id = product.ID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => product.qtyRemain) @space @Html.DisplayFor(modelItem => product.unitModel.unitName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => product.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => product.city)
+            </td>
+            <td>
+                @Html.ActionLink("View Product", "Details", new { id = product.ID }) |
+                @Html.ActionLink("Message Seller", "sendNewMessage", "messaging", new { recipientID = product.sellerID }, new { htmlAttributes = new { @class = "" } })
+            </td>
+        </tr>
+    }
+}
+</table>

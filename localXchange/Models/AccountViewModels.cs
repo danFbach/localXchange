@@ -104,8 +104,7 @@ namespace localXchange.Models
     public class ForgotPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "User Name")]
+        public string username { get; set; }
     }
 }

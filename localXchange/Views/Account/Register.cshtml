@@ -1,104 +1,154 @@
 ﻿@model localXchange.Models.newUserViewModel
 @{
-    ViewBag.Title = "Register To The LocalXchange";
+    ViewBag.Title = "Register a new account on LocalXchange";
 }
 
-<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @style = "display:inline-block;width:320px;float:left;padding: 0 40px 0 20px; border-right: 1px solid #666; position: relative; top: -10px;" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
+    <h2>Create an account.</h2>
     <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <h4 class="text-danger">@ViewBag.ErrorMessage</h4>
+    <h4 class="text-danger">@Html.ValidationSummary("", new { @class = "text-danger" })</h4>
     @Html.HiddenFor(m => m.newProfile.ID)
-    <div class="form-group">
-        @Html.LabelFor(m => m.newUser.Email, new { @class = "col-md-2 control-label" })*
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.newUser.Email, new { @class = "form-control" })
+    <div class="formGroup">
+        <span class="control-label">* Required Field</span>
+        <div class="formItem">
+            @Html.TextBoxFor(m => m.newUser.Email, new { @class = "form-control", @placeholder = "Email | Example@example.com *" })
             @Html.ValidationMessageFor(m => m.newUser.Email, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.newUser.Password, new { @class = "col-md-2 control-label" })*
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.newUser.Password, new { @class = "form-control" })
+    
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.TextBoxFor(m => m.newProfile.user.UserName, new { @class = "form-control", @id = "usernameFormItem", @placeholder = "Username | Can be left blank." })
+            @Html.ValidationMessageFor(m => m.newProfile.user.UserName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.PasswordFor(m => m.newUser.Password, new { @class = "form-control", @placeholder = "Password | 6 character Min. *" })
             @Html.ValidationMessageFor(m => m.newUser.Password, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.newUser.ConfirmPassword, new { @class = "col-md-2 control-label" })*
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.newUser.ConfirmPassword, new { @class = "form-control" })
+
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.PasswordFor(m => m.newUser.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm Password *" })
             @Html.ValidationMessageFor(m => m.newUser.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.newProfile.fName, new { @class = "col-md-2 control-label" })*
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.newProfile.fName, new { @class = "form-control" })
+
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.TextBoxFor(m => m.newProfile.fName, new { @class = "form-control", @placeholder = "First Name *" })
             @Html.ValidationMessageFor(m => m.newProfile.fName, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.newProfile.MInitial, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.newProfile.MInitial, new { @class = "form-control" })
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.TextBoxFor(m => m.newProfile.MInitial, new { @class = "form-control", @placeholder = "Middle Initial" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.newProfile.lName, new { @class = "col-md-2 control-label" })*
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.newProfile.lName, new { @class = "form-control" })
+
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.TextBoxFor(m => m.newProfile.lName, new { @class = "form-control", @placeholder = "Last Name *" })
             @Html.ValidationMessageFor(m => m.newProfile.lName, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.newProfile.state, new { @class = "col-md-2 control-label" })*
-        <div class="col-md-10">
+
+    <div class="formGroup">
+        <div class="formItem" style="display: inline-block;">
+            <button type="button" class="curLocBtn btn btn-default btn-submit inactive" title="Retrieve Location">Loading Location</button> 
+        </div>
+    </div>
+
+    <div class="formGroup">
+        <div class="formItem">
             @Html.DropDownListFor(m => m.newProfile.state, new SelectList(new List<Object>
                     {
-                    new { value = "Alaska" , text = "Alaska" },
-                    new { value = "Alabama" , text = "Alabama"  },
-                    new { value = "Washington" , text = "Washington"  },
-                    new { value = "Wisconsin" , text = "Wisconsin"  }
-                    }, "value", "text", 2), "State: ", new { @class = "form-control" })
+                    new { value = "Alabama" ,       text = "AL  | Alabama"  },
+                    new { value = "Alaska" ,        text = "AK  | Alaska" },
+                    new { value = "Arizona" ,       text = "AZ  | Arizona" },
+                    new { value = "Arkansas" ,      text = "AR  | Arkansas" },
+                    new { value = "California" ,    text = "CA  | California" },
+                    new { value = "Colorado" ,      text = "CO  | Colorado" },
+                    new { value = "Connecticut" ,   text = "CT  | Connecticut" },
+                    new { value = "Delaware" ,      text = "DE  | Delaware" },
+                    new { value = "Florida" ,       text = "FL  | Florida" },
+                    new { value = "Georgia" ,       text = "GA  | Georgia" },
+                    new { value = "Hawaii" ,        text = "HI  | Hawaii" },
+                    new { value = "Idaho" ,         text = "ID  | Idaho" },
+                    new { value = "Illinois" ,      text = "IL  | Illinois" },
+                    new { value = "Indiana" ,       text = "IN  | Indiana" },
+                    new { value = "Iowa" ,          text = "IA  | Iowa" },
+                    new { value = "Kansas" ,        text = "KS  | Kansas" },
+                    new { value = "Kentucky" ,      text = "KY  | Kentucky" },
+                    new { value = "Louisiana" ,     text = "LA  | Louisiana" },
+                    new { value = "Maine" ,         text = "ME  | Maine" },
+                    new { value = "Maryland" ,      text = "MD  | Maryland" },
+                    new { value = "Massachusetts" , text = "MA  | Massachusetts" },
+                    new { value = "Michigan" ,      text = "MI | Michigan" },
+                    new { value = "Minnesota" ,     text = "MN | Minnesota" },
+                    new { value = "Mississippi" ,   text = "MS | Mississippi" },
+                    new { value = "Missouri" ,      text = "MO | Missouri" },
+                    new { value = "Montana" ,       text = "MT | Montana" },
+                    new { value = "Nebraska" ,      text = "NE | Nebraska" },
+                    new { value = "Nevada" ,        text = "NV | Nevada" },
+                    new { value = "New Hampshire" , text = "NH | New Hampshire" },
+                    new { value = "New Jersey" ,    text = "NJ | New Jersey" },
+                    new { value = "New Mexico" ,    text = "NM | New Mexico" },
+                    new { value = "New York" ,      text = "NY | New York" },
+                    new { value = "North Carolina" ,text = "NC | North Carolina" },
+                    new { value = "North Dakota" ,  text = "ND | North Dakota" },
+                    new { value = "Ohio" ,          text = "OH | Ohio" },
+                    new { value = "Oklahoma" ,      text = "OK | Oklahoma" },
+                    new { value = "Oregon" ,        text = "OR | Oregon" },
+                    new { value = "Pennsylvania" ,  text = "PA | Pennsylvania" },
+                    new { value = "Rhode Island " , text = "RI | Rhode Island " },
+                    new { value = "South Carolina" ,text = "SC | South Carolina" },
+                    new { value = "South Dakota" ,  text = "SD | South Dakota" },
+                    new { value = "Tennessee" ,     text = "TN | Tennessee" },
+                    new { value = "Texas" ,         text = "TX | Texas" },
+                    new { value = "Utah" ,          text = "UT | Utah" },
+                    new { value = "Vermont" ,       text = "VT | Vermont" },
+                    new { value = "Virginia" ,      text = "VA | Virginia" },
+                    new { value = "Washington" ,    text = "WA | Washington"  },
+                    new { value = "West Virginia" , text = "WV | West Virginia" },
+                    new { value = "Wisconsin" ,     text = "WI | Wisconsin"  },
+                    new { value = "Wyoming" ,       text = "WY | Wyoming" }
+                    }, "value", "text", 2), "State: *", new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.newProfile.state, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.newProfile.city, new { @class = "col-md-2 control-label" })*
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.newProfile.city, new { @class = "form-control" })
+
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.TextBoxFor(m => m.newProfile.city, new { @class = "form-control", @placeholder = "City *" })
             @Html.ValidationMessageFor(m => m.newProfile.city, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.newProfile.zipcode, new { @class = "col-md-2 control-label" })*
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.newProfile.zipcode, new { @class = "form-control" })
+
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.TextBoxFor(m => m.newProfile.zipcode, new { @class = "form-control", @placeholder = "Zip Code | ##### *" })
             @Html.ValidationMessageFor(m => m.newProfile.zipcode, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.newProfile.address, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.newProfile.address, new { @class = "form-control" })
+
+    <div class="formGroup">
+        <div class="formItem">
+            @Html.TextBoxFor(m => m.newProfile.address, new { @class = "form-control", @placeholder = "Street Address" })
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+    <div class="formGroup">
+        <div class="formItem">
             <input type="submit" class="btn btn-default" value="Register" />
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <span>* Field Required</span>
-        </div>
-    </div>
 }
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+@{ Html.RenderAction("_partialProductList",    "Product"); }
+@section Scripts { @Scripts.Render("~/bundles/jqueryval") }
 
