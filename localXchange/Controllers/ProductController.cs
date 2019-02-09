@@ -31,22 +31,26 @@ namespace localXchange.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            if (TempData["ErrorMessage"] != null)
+            else
             {
-                ViewBag.StatusMessage = TempData["ErrorMessage"].ToString();
-            }
-            string curUser = User.Identity.GetUserId();
-            var products = db.productmodel.ToList();
-            List<productModel> curUserProducts = new List<productModel>();
 
-            foreach (var product in products)
-            {
-                if (product.sellerID == curUser)
+                if (TempData["ErrorMessage"] != null)
                 {
-                    curUserProducts.Add(product);
+                    ViewBag.StatusMessage = TempData["ErrorMessage"].ToString();
                 }
+                string curUser = User.Identity.GetUserId();
+                var products = db.productmodel.ToList();
+                List<productModel> curUserProducts = new List<productModel>();
+
+                foreach (var product in products)
+                {
+                    if (product.sellerID == curUser)
+                    {
+                        curUserProducts.Add(product);
+                    }
+                }
+                return View(curUserProducts);
             }
-            return View(curUserProducts);
         }
 
         // GET: Product/Details/5
@@ -61,13 +65,15 @@ namespace localXchange.Controllers
             model.productModel.sellerModel = db.Users.Find(model.productModel.sellerID);
             model.productModel.unitModel = db.unitsModel.Find(model.productModel.unitID);
             model.productImageCollectionModel = new List<Models.productImage>();
-            foreach (var item in db.productImage.ToList())
-            {
-                if (item.productID == id)
-                {
-                    model.productImageCollectionModel.Add(item);
-                }
-            }
+            model.productImageCollectionModel.AddRange(db.productImage.Where(x => x.productID == id));
+            //.ForEach(x => x.productID == id => model.productImageCollectionModel.Add(item));
+            //foreach (var item in db.productImage.ToList())
+            //{
+            //    if (item.productID == id)
+            //    {
+            //        model.productImageCollectionModel.Add(item);
+            //    }
+            //}
             return View(model);
         }
 
@@ -81,8 +87,9 @@ namespace localXchange.Controllers
             }
             else
             {
+                productModel product = db.productmodel.Find(productID);
                 TempData["StatusMessage"] = "This product does not belong to you, therefore you are not allowed to modify it.";
-                return RedirectToAction("publicListing");
+                return View("publicListing",product);
             }
         }
 
@@ -123,8 +130,9 @@ namespace localXchange.Controllers
             }
             else
             {
+                productModel product = db.productmodel.Find(productID);
                 TempData["StatusMessage"] = "This product does not belong to you, therefore you are not allowed to modify it.";
-                return RedirectToAction("publicListing");
+                return View("publicListing", product);
             }
         }
         // GET: Product/createCategory
@@ -214,7 +222,7 @@ namespace localXchange.Controllers
             }
             oldModel.category = db.productCategory.Find(oldModel.categoryID);
             oldModel.qtyRemain = oldModel.qtyAvail;
-            if(oldModel.tags == null)
+            if (oldModel.tags == null)
             {
                 oldModel.tags = "";
             }
@@ -264,7 +272,7 @@ namespace localXchange.Controllers
             newModel.sellerID = oldModel.sellerID;
             newModel.dateListed = oldModel.dateListed;
             newModel.tags = new List<string>();
-            if(oldModel.tags != null)
+            if (oldModel.tags != null)
             {
                 newModel.tags = oldModel.tags.Split(',').ToList();
             }
@@ -382,7 +390,7 @@ namespace localXchange.Controllers
             List<publicListingViewModel> viewModelList = new List<Models.publicListingViewModel>();
             var categories = db.productCategory.ToList().OrderBy(x => x.ID).ToList();
             model = db.productmodel.OrderBy(x => x.dateListed).Skip(0).Take(50).OrderBy(x => x.categoryID).ToList();
-            foreach(var cat in categories)
+            foreach (var cat in categories)
             {
                 publicListingViewModel viewModel = new publicListingViewModel();
                 viewModel.productCat = new productCategory();
@@ -390,26 +398,26 @@ namespace localXchange.Controllers
                 viewModel.products = new List<productModel>();
                 foreach (var item in model)
                 {
-                    if(item.categoryID == cat.ID)
+                    if (item.categoryID == cat.ID)
                     {
                         item.sellerModel = db.Users.Find(item.sellerID);
                         viewModel.products.Add(item);
                     }
                 }
-                if(viewModel.products.Count() > 0) { viewModelList.Add(viewModel); }
+                if (viewModel.products.Count() > 0) { viewModelList.Add(viewModel); }
             }
             return View(viewModelList);
         }
         #endregion product list mods
 
         #region product Partial Helpers
-        
+
         public List<publicListingViewModel> loadProductData(List<productModel> productsIN)
         {
             List<publicListingViewModel> updatedList = new List<publicListingViewModel>();
             productCategory cat = db.productCategory.Find(productsIN[0].categoryID);
-            foreach(productModel product in productsIN) { product.sellerModel = db.Users.Find(product.sellerID); }
-            updatedList.Add(new publicListingViewModel { products = productsIN, productCat = cat});
+            foreach (productModel product in productsIN) { product.sellerModel = db.Users.Find(product.sellerID); }
+            updatedList.Add(new publicListingViewModel { products = productsIN, productCat = cat });
             return updatedList;
         }
         public ActionResult _partialCategoryList()
@@ -417,11 +425,11 @@ namespace localXchange.Controllers
             List<productCatViewModel> viewModelList = new List<productCatViewModel>();
             productCatViewModel viewModel = new productCatViewModel();
             var prods = db.productmodel.ToList();
-            foreach(var cat in db.productCategory.ToList())
+            foreach (var cat in db.productCategory.ToList())
             {
                 viewModel = new productCatViewModel();
                 viewModel.productCount = prods.Where(x => x.categoryID == cat.ID).Count();
-                viewModel.productCat = cat; 
+                viewModel.productCat = cat;
                 viewModelList.Add(viewModel);
             }
             return PartialView(viewModelList);
@@ -444,7 +452,7 @@ namespace localXchange.Controllers
             //    foreach (var image in images) { if(image.productID == product.ID) { viewModel.productImageCollectionModel.Add(image); } }
             //    viewModelList.Add(viewModel);
             //}
-            
+
             //Create PartialProdPack
             homepageProductListPack prodListDataPack = new homepageProductListPack();
             ///new product list
@@ -482,10 +490,10 @@ namespace localXchange.Controllers
             var prods = db.productmodel.ToList();
             foreach (var cat in db.productCategory.ToList())
             {
-                if(prods.Where(x => x.categoryID == cat.ID).Count() > 0)
+                if (prods.Where(x => x.categoryID == cat.ID).Count() > 0)
                 {
                     selectListModel.catID = cat.ID;
-                    selectListModel.cats.Add(new SelectListItem { Text = cat.categoryName, Value = cat.ID.ToString(), Selected=false });
+                    selectListModel.cats.Add(new SelectListItem { Text = cat.categoryName, Value = cat.ID.ToString(), Selected = false });
                 }
             }
             return PartialView(selectListModel);

@@ -1,10 +1,7 @@
 namespace localXchange.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
     using Models;
+    using System.Data.Entity.Migrations;
 
     internal sealed class Configuration : DbMigrationsConfiguration<localXchange.Models.ApplicationDbContext>
     {
@@ -17,8 +14,32 @@ namespace localXchange.Migrations
         {
             //context.Roles.AddOrUpdate(x => x.Id,
             //    new Microsoft.AspNet.Identity.EntityFramework.IdentityRole { Name = "Admin" },
-            //    new Microsoft.AspNet.Identity.EntityFramework.IdentityRole { Name = "StdUser" }
+            //    new Microsoft.AspNet.Identity.EntityFramework.IdentityRole { Name = "Moderator" },
+            //    new Microsoft.AspNet.Identity.EntityFramework.IdentityRole { Name = "User" }
             //);
+
+            context.accountType.AddOrUpdate(x => x.Id,
+                new accountType { typeName = "Administrator" },
+                new accountType { typeName = "Moderator" },
+                new accountType { typeName = "Employee" },
+                new accountType { typeName = "Individual" }
+            );
+
+            context.subscriptionPlans.AddOrUpdate(x => x.Id,
+                new subscriptionPlan { subscriptionLevel = "Enterprise", abbreviatedName = "ent" },
+                new subscriptionPlan { subscriptionLevel = "Small Business", abbreviatedName = "smb" },
+                new subscriptionPlan { subscriptionLevel = "Individual", abbreviatedName = "ind" }
+
+
+            );
+
+            context.languages.AddOrUpdate(x => x.id,
+                new languageNationalities { language = "English/US", lanAbbr = "en_US" },
+                new languageNationalities { language = "English/UK", lanAbbr = "en_UK" },
+                new languageNationalities { language= "Deutsch", lanAbbr="de_DE"}
+
+            );
+
             //context.unitsModel.AddOrUpdate(
             //    new unitsModel { unitName = "Bunch(s)", unitAbvr = "Bunch", unitType = "Quantity" },
             //    new unitsModel { unitName = "Quantity", unitAbvr = "Qty", unitType = "Quantity" },

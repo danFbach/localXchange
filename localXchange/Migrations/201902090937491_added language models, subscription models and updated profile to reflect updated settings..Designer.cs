@@ -7,13 +7,13 @@ namespace localXchange.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class _0_initial : IMigrationMetadata
+    public sealed partial class addedlanguagemodelssubscriptionmodelsandupdatedprofiletoreflectupdatedsettings : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_0_initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addedlanguagemodelssubscriptionmodelsandupdatedprofiletoreflectupdatedsettings));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703231534420_0_initial"; }
+            get { return "201902090937491_added language models, subscription models and updated profile to reflect updated settings."; }
         }
         
         string IMigrationMetadata.Source

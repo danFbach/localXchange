@@ -20,8 +20,10 @@ namespace localXchange.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        private const string db_name = "localXchange_db";
+
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base(db_name, throwIfV1Schema: false)
         {
         }
 
@@ -37,5 +39,10 @@ namespace localXchange.Models
         public DbSet<productImage> productImage { get; set; }
         public DbSet<messagingModel> messagingModel { get; set; }
         public DbSet<addressBookModel> addressBookModel { get; set; }
+        public DbSet<accountType> accountType { get; set; }
+        public DbSet<subscriptionPlan> subscriptionPlans { get; set; }
+        public DbSet<languageNationalities> languages { get; set; }
+        public DbSet<langLabels> langLabel { get; set; }
+        public DbSet<langContent> langContent { get; set; }
     }
 }

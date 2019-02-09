@@ -3,7 +3,7 @@ namespace localXchange.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _0_initial : DbMigration
+    public partial class initial_new_db : DbMigration
     {
         public override void Up()
         {
@@ -119,7 +119,7 @@ namespace localXchange.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "dbo.aProductModels",
+                "dbo.productModels",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
@@ -163,8 +163,8 @@ namespace localXchange.Migrations
                         userProfileModel_ID1 = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.aProductModels", t => t.product_ID)
-                .ForeignKey("dbo.AspNetUsers", t => t.userID, cascadeDelete: true)
+                .ForeignKey("dbo.productModels", t => t.product_ID)
+                .ForeignKey("dbo.AspNetUsers", t => t.userID, cascadeDelete: false)
                 .ForeignKey("dbo.userProfileModels", t => t.userProfileModel_ID)
                 .ForeignKey("dbo.userProfileModels", t => t.userProfileModel_ID1)
                 .Index(t => t.userID)
@@ -211,7 +211,7 @@ namespace localXchange.Migrations
                         messagesToEmail = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserID)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserID, cascadeDelete: false)
                 .Index(t => t.UserID);
             
         }
@@ -222,11 +222,11 @@ namespace localXchange.Migrations
             DropForeignKey("dbo.ratingModels", "userProfileModel_ID1", "dbo.userProfileModels");
             DropForeignKey("dbo.ratingModels", "userProfileModel_ID", "dbo.userProfileModels");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.aProductModels", "unitModel_ID", "dbo.unitsModels");
-            DropForeignKey("dbo.aProductModels", "sellerModel_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.productModels", "unitModel_ID", "dbo.unitsModels");
+            DropForeignKey("dbo.productModels", "sellerModel_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.ratingModels", "userID", "dbo.AspNetUsers");
-            DropForeignKey("dbo.ratingModels", "product_ID", "dbo.aProductModels");
-            DropForeignKey("dbo.aProductModels", "productCategory_ID", "dbo.productCategories");
+            DropForeignKey("dbo.ratingModels", "product_ID", "dbo.productModels");
+            DropForeignKey("dbo.productModels", "productCategory_ID", "dbo.productCategories");
             DropForeignKey("dbo.messagingModels", "senderID", "dbo.AspNetUsers");
             DropForeignKey("dbo.messagingModels", "receiverID", "dbo.AspNetUsers");
             DropForeignKey("dbo.addressBookModels", "bookOwnerUserID", "dbo.AspNetUsers");
@@ -240,9 +240,9 @@ namespace localXchange.Migrations
             DropIndex("dbo.ratingModels", new[] { "userProfileModel_ID" });
             DropIndex("dbo.ratingModels", new[] { "product_ID" });
             DropIndex("dbo.ratingModels", new[] { "userID" });
-            DropIndex("dbo.aProductModels", new[] { "unitModel_ID" });
-            DropIndex("dbo.aProductModels", new[] { "sellerModel_Id" });
-            DropIndex("dbo.aProductModels", new[] { "productCategory_ID" });
+            DropIndex("dbo.productModels", new[] { "unitModel_ID" });
+            DropIndex("dbo.productModels", new[] { "sellerModel_Id" });
+            DropIndex("dbo.productModels", new[] { "productCategory_ID" });
             DropIndex("dbo.messagingModels", new[] { "receiverID" });
             DropIndex("dbo.messagingModels", new[] { "senderID" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
@@ -256,7 +256,7 @@ namespace localXchange.Migrations
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.unitsModels");
             DropTable("dbo.ratingModels");
-            DropTable("dbo.aProductModels");
+            DropTable("dbo.productModels");
             DropTable("dbo.productImages");
             DropTable("dbo.productCategories");
             DropTable("dbo.messagingModels");

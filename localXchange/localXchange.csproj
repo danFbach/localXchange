@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -181,18 +182,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703231534420_0_initial.cs" />
-    <Compile Include="Migrations\201703231534420_0_initial.Designer.cs">
-      <DependentUpon>201703231534420_0_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201902090813422_initial_new_db.cs" />
+    <Compile Include="Migrations\201902090813422_initial_new_db.Designer.cs">
+      <DependentUpon>201902090813422_initial_new_db.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703231603587_1_initial.cs" />
-    <Compile Include="Migrations\201703231603587_1_initial.Designer.cs">
-      <DependentUpon>201703231603587_1_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201902090937491_added language models, subscription models and updated profile to reflect updated settings..cs" />
+    <Compile Include="Migrations\201902090937491_added language models, subscription models and updated profile to reflect updated settings..Designer.cs">
+      <DependentUpon>201902090937491_added language models, subscription models and updated profile to reflect updated settings..cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\addressBookModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LanguageModel.cs" />
     <Compile Include="Models\locationModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\messagingModel.cs" />
@@ -330,11 +332,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703231534420_0_initial.resx">
-      <DependentUpon>201703231534420_0_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902090813422_initial_new_db.resx">
+      <DependentUpon>201902090813422_initial_new_db.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703231603587_1_initial.resx">
-      <DependentUpon>201703231603587_1_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902090937491_added language models, subscription models and updated profile to reflect updated settings..resx">
+      <DependentUpon>201902090937491_added language models, subscription models and updated profile to reflect updated settings..cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

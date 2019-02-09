@@ -7,13 +7,13 @@ namespace localXchange.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class _1_initial : IMigrationMetadata
+    public sealed partial class initial_new_db : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_1_initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial_new_db));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703231603587_1_initial"; }
+            get { return "201902090813422_initial_new_db"; }
         }
         
         string IMigrationMetadata.Source
